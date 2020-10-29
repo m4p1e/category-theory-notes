@@ -4,8 +4,16 @@
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amssymb}
-
 \usetikzlibrary{cd}
+
+
+
+%theorem,corollary,lemma
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+
 
 \title{Category Theory}
 \author{maple,菜鸡}
@@ -13,6 +21,53 @@
 
 \begin{document}
 \maketitle
+
+\section{Functoriality}
+
+\begin{flushleft}
+\textbf{函子}(functor)\\
+\begin{definition}
+一个函子$F \colon \mathcal{C} \rightarrow \mathcal{D}$由两个映射组成
+\begin{itemize}
+ \item 每一个对象$c \in \mathcal{C}$,对应一个对象$F_c \in \mathcal{D}$。
+ \item 每一个态射$f \colon c \rightarrow	c' \in \mathcal{C}$,对应一个态射$Ff \colon Fc \rightarrow Fc' \in \mathcal{D}$，所有$Ff$的domain和codomian分别对应$f$的domain和codomain。 
+\end{itemize}
+\end{definition}
+同时还满足两个公理（functoriality aximos）
+\begin{itemize}
+ 	\item 对任意的可复合态射$f$,$g \in \mathcal{C}$,$Fg \cdot Ff = F(g \cdot f)$
+ 	\item 对任意的对象$c \in \mathcal{C}$,$F(1_c)=1_{F_c}$
+\end{itemize}
+通俗一点来说，函子由两个范畴之间对象的映射和态射的映射组成，同时保留了范畴所有的结构，包括domains，codomain，复合律，identity。
+\end{flushleft}
+
+\begin{lemma}
+函子保留同构
+\end{lemma}
+
+\begin{flushleft}
+\textbf{同变函子和逆变函子}（covariant and contravariant）\\
+前面定义的函子也叫同变函子，那么一个逆变函子从$C$到$D$为$F: \mathcal{C}^{op} \rightarrow \mathcal{D} $,也是由两个映射组成
+\begin{itemize}
+	\item 每一个对象$c \in \mathcal{C}$,对应一个对象$F_c \in \mathcal{D}$。
+	\item 每一个态射$f \colon c \rightarrow	c' \in \mathcal{C}$，对应一个态射$Ff \colon Fc' \rightarrow Fc \in \mathcal{D}$,所有$Ff$的domain和codomian分别对应$f$的codomain和domain
+\end{itemize}
+同时也满足两个公理（）\\
+\begin{itemize}
+	\item 对任意的可复合的$f$,$g \in \mathcal{C}$,$Ff \cdot Fg = F(g \cdot f)$
+	\item 对任意的对象$c \in \mathcal{C}$,$F(1_c)=1_{F_c}$
+\end{itemize}
+相对于同变函子来说，$f$对应的像$Ff$的箭头反过来了，下面这个图可以很形象的描述	
+\end{flushleft}
+
+\begin{center}
+$C^{op} \xrightarrow{F} \mathcal{D}$ \\
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAGMQBfU9TXfIRRkAjFVqMWbdgHJuvEBmx4CREeXH1mrRCABiAfU48+ywWtJjqWqbsPBZXbuJhQA5vCKgAZgCcIALZIZCA4EEgATNQ4dFgMbAF0aHBh8j7+QYjqoeGIAMzRsfG6icmpJiB+gcHRudk2OpVplRlIBTmR1pKNet7OXEA
+\begin{tikzcd}
+c \arrow[r, maps to] \arrow[d, "f"] & F_c                    \\
+c' \arrow[r, maps to]               & F_{c'} \arrow[u, "Ff"]
+\end{tikzcd}
+\end{center}
 
 \begin{flushleft}
 $\textbf{Product}$ \\
@@ -25,22 +80,34 @@ $\textbf{Product}$ \\
 
 
 \begin{flushleft}
-\textbf{双函子的形式化定义} \\ 
+\textbf{双函子的形式化定义}(bifunctor) \\ 
 %https://encyclopediaofmath.org/wiki/Bifunctor
+它叫双函子，不如叫二元函子，因为bifunctor是binary functor的缩写，对范畴$\mathcal{C}_1,\mathcal{C}_2,\mathcal{D}$,二元函子表示为:\\
+
+\begin{center}
+$F \colon \mathcal{C}_1 \times \mathcal{C}_2 \rightarrow \mathcal{D}$
+\end{center}
+
+这个函子的domain是两个范畴的积，例如Abel群看做一个范畴$\mathbf{G}$，其中加法运算 $+ \colon \mathbf{G} \times \mathbf{G} \rightarrow \mathbf{G}$是一个双函子(证明过程证明functor满足的两个公理即可，保持identity和复合律)。 
+
 \end{flushleft}
 
+
 \begin{flushleft}
-$\textbf{自然双函子}$(bifunctor),好吧它的真正名字叫$\textbf{射影函子}$ \\ 
+$\textbf{自然双函子}$,好吧它的真正名字叫$\textbf{射影函子}$ \\
+\begin{center}
 $P_{\mathcal{C}} \colon \mathcal{C} \times \mathcal{D} \rightarrow \mathcal{C},\left( A,B \right)\mapsto A,\left( f,g \right)\mapsto f$ \\ \vbox{}
 $P_{\mathcal{D}} \colon \mathcal{C} \times \mathcal{D} \rightarrow \mathcal{D},\left( A,B \right)\mapsto B,\left( f,g \right)\mapsto g$ \\
+\end{center} 
 \end{flushleft}
+
+
 
 
 \begin{flushleft}
 \textbf{射影函子的万有性质} \\
 对任意的范畴 $\varepsilon$ 及函子 $R\colon \varepsilon \rightarrow \mathcal{C}$    和 $T\colon \varepsilon \rightarrow \mathcal{D}$ ,存在唯一的函子 $F\colon \varepsilon \rightarrow \mathcal{C}\times\mathcal{D}$ 使得 $P_{\mathcal{C}}F=R,P_{\mathcal{D}}F=T$, 即下面交换图表示
 \end{flushleft}
-
 
 % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12BbOnACwDGjYAGEAvgAJOeLvCndeg4QBExIMaXSZc+QigBM5KrUYs2nHvyENRajVux4CRQ-uP1mrRB3b0ATjBo2AzO9iAYjrpEZG7UHmbeForWwKrqxjBQAObwRKAAZn4QXEhkIDgQSACM1Ax0AEYwDAAK2k56IAww+TggcaZeIM0A+sBJVsLidpoghcWl1BVIAMz9nmwjYwoTNqrTBUUliIbllYirJuveACrqM3NHJ0uINZcJIABKdwfzx4tnZQYWDAgygdDgfEyfTegwAYukxEA
 \begin{center}
