@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{ctex}
+\usepackage{tikz}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usetikzlibrary{cd}
+
+\title{Category Theory}
+\author{maple,菜鸡}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{flushleft}
+$\textbf{Product}$ \\
+对任意的两个范畴 $\mathcal{C}$ 和 $\mathcal{D}$,他们的积是一个新范畴 $\mathcal{C} \times \mathcal{D}$\\
+\begin{itemize}
+	\item 对象是有序对 $\left( c,d \right)$,其中$c$是$\mathcal{C}$中的一个对象，$d$是是$\mathcal{D}$的一个对象 
+	\item 态射也是有序对 $\left(f,g \right) \colon \left(c,d\right) \rightarrow \left(c',d'\right)$,$f\colon c \rightarrow c' \in \mathcal{C}$,$g \colon d \rightarrow d' \in \mathcal{D}$
+\end{itemize}
+\end{flushleft}
+
+
+\begin{flushleft}
+\textbf{双函子的形式化定义} \\ 
+%https://encyclopediaofmath.org/wiki/Bifunctor
+\end{flushleft}
+
+\begin{flushleft}
+$\textbf{自然双函子}$(bifunctor),好吧它的真正名字叫$\textbf{射影函子}$ \\ 
+$P_{\mathcal{C}} \colon \mathcal{C} \times \mathcal{D} \rightarrow \mathcal{C},\left( A,B \right)\mapsto A,\left( f,g \right)\mapsto f$ \\ \vbox{}
+$P_{\mathcal{D}} \colon \mathcal{C} \times \mathcal{D} \rightarrow \mathcal{D},\left( A,B \right)\mapsto B,\left( f,g \right)\mapsto g$ \\
+\end{flushleft}
+
+
+\begin{flushleft}
+\textbf{射影函子的万有性质} \\
+对任意的范畴 $\varepsilon$ 及函子 $R\colon \varepsilon \rightarrow \mathcal{C}$    和 $T\colon \varepsilon \rightarrow \mathcal{D}$ ,存在唯一的函子 $F\colon \varepsilon \rightarrow \mathcal{C}\times\mathcal{D}$ 使得 $P_{\mathcal{C}}F=R,P_{\mathcal{D}}F=T$, 即下面交换图表示
+\end{flushleft}
+
+
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12BbOnACwDGjYAGEAvgAJOeLvCndeg4QBExIMaXSZc+QigBM5KrUYs2nHvyENRajVux4CRQ-uP1mrRB3b0ATjBo2AzO9iAYjrpEZG7UHmbeForWwKrqxjBQAObwRKAAZn4QXEhkIDgQSACM1Ax0AEYwDAAK2k56IAww+TggcaZeIM0A+sBJVsLidpoghcWl1BVIAMz9nmwjYwoTNqrTBUUliIbllYirJuveACrqM3NHJ0uINZcJIABKdwfzx4tnZQYWDAgygdDgfEyfTegwAYukxEA
+\begin{center}
+\begin{tikzcd}
+\mathcal{C} \times \mathcal{D} \arrow[rr, "P_{\mathcal{C}}"] \arrow[dd, "P_{\mathcal{D}}"] &  & \mathcal{C}                                                           \\
+                                                                                           &  &                                                                       \\
+\mathcal{D}                                                                                &  & \varepsilon \arrow[ll, "T"] \arrow[uu, "R"] \arrow[lluu, "F", dashed]
+\end{tikzcd}
+\end{center}
+
+\end{document}
