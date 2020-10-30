@@ -47,11 +47,13 @@
 
 \begin{flushleft}
 \textbf{同变函子和逆变函子}（covariant and contravariant）\\
+\begin{definition}
 前面定义的函子也叫同变函子，那么一个逆变函子从$C$到$D$为$F: \mathcal{C}^{op} \rightarrow \mathcal{D} $,也是由两个映射组成
 \begin{itemize}
 	\item 每一个对象$c \in \mathcal{C}$,对应一个对象$F_c \in \mathcal{D}$。
 	\item 每一个态射$f \colon c \rightarrow	c' \in \mathcal{C}$，对应一个态射$Ff \colon Fc' \rightarrow Fc \in \mathcal{D}$,所有$Ff$的domain和codomian分别对应$f$的codomain和domain
 \end{itemize}
+\end{definition}
 同时也满足两个公理（）\\
 \begin{itemize}
 	\item 对任意的可复合的$f$,$g \in \mathcal{C}$,$Ff \cdot Fg = F(g \cdot f)$
@@ -70,23 +72,37 @@ c' \arrow[r, maps to]               & F_{c'} \arrow[u, "Ff"]
 \end{center}
 
 \begin{flushleft}
+\textbf{c-Functor} \\
+%待补充
+\begin{center}
+$\mathcal{C} \xrightarrow{C(c,-)} \mathcal{S}et$ \\
+$\mathcal{C}^{op} \xrightarrow{C(-,c)} \mathcal{S}et$ \\
+\end{center}
+\end{flushleft}
+
+
+\begin{flushleft}
 $\textbf{Product}$ \\
+\begin{definition}
 对任意的两个范畴 $\mathcal{C}$ 和 $\mathcal{D}$,他们的积是一个新范畴 $\mathcal{C} \times \mathcal{D}$\\
 \begin{itemize}
 	\item 对象是有序对 $\left( c,d \right)$,其中$c$是$\mathcal{C}$中的一个对象，$d$是是$\mathcal{D}$的一个对象 
 	\item 态射也是有序对 $\left(f,g \right) \colon \left(c,d\right) \rightarrow \left(c',d'\right)$,$f\colon c \rightarrow c' \in \mathcal{C}$,$g \colon d \rightarrow d' \in \mathcal{D}$
 \end{itemize}
+\end{definition}
 \end{flushleft}
 
 
 \begin{flushleft}
 \textbf{双函子的形式化定义}(bifunctor) \\ 
+\begin{definition}
 %https://encyclopediaofmath.org/wiki/Bifunctor
 它叫双函子，不如叫二元函子，因为bifunctor是binary functor的缩写，对范畴$\mathcal{C}_1,\mathcal{C}_2,\mathcal{D}$,二元函子表示为:\\
 
 \begin{center}
 $F \colon \mathcal{C}_1 \times \mathcal{C}_2 \rightarrow \mathcal{D}$
 \end{center}
+\end{definition}
 
 这个函子的domain是两个范畴的积，例如Abel群看做一个范畴$\mathbf{G}$，其中加法运算 $+ \colon \mathbf{G} \times \mathbf{G} \rightarrow \mathbf{G}$是一个双函子(证明过程证明functor满足的两个公理即可，保持identity和复合律)。 
 
@@ -117,5 +133,8 @@ $P_{\mathcal{D}} \colon \mathcal{C} \times \mathcal{D} \rightarrow \mathcal{D},\
 \mathcal{D}                                                                                &  & \varepsilon \arrow[ll, "T"] \arrow[uu, "R"] \arrow[lluu, "F", dashed]
 \end{tikzcd}
 \end{center}
+
+\section{自然变换}
+
 
 \end{document}
