@@ -5,7 +5,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usetikzlibrary{cd}
-
+\usepackage{indentfirst}
 
 
 %theorem,corollary,lemma
@@ -13,6 +13,7 @@
 \newtheorem{corollary}{Corollary}[theorem]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
 
 
 \title{Category Theory}
@@ -54,7 +55,7 @@
 	\item 每一个态射$f \colon c \rightarrow	c' \in \mathcal{C}$，对应一个态射$Ff \colon Fc' \rightarrow Fc \in \mathcal{D}$,所有$Ff$的domain和codomian分别对应$f$的codomain和domain
 \end{itemize}
 \end{definition}
-同时也满足两个公理（）\\
+同时也满足两个公理（functoriality aximos）\\
 \begin{itemize}
 	\item 对任意的可复合的$f$,$g \in \mathcal{C}$,$Ff \cdot Fg = F(g \cdot f)$
 	\item 对任意的对象$c \in \mathcal{C}$,$F(1_c)=1_{F_c}$
@@ -70,6 +71,20 @@ c \arrow[r, maps to] \arrow[d, "f"] & F_c                    \\
 c' \arrow[r, maps to]               & F_{c'} \arrow[u, "Ff"]
 \end{tikzcd}
 \end{center}
+
+\begin{flushleft}
+\textbf{函子的复合}
+\end{flushleft}
+设$F \colon \mathcal{A} \rightarrow \mathcal{B},G \colon \mathcal{B} \rightarrow \mathcal{C}$是函子，定义$GF \colon \mathcal{A} \rightarrow \mathcal{C}$使得对$\mathcal{A}$中的任意一个对象$A$,\[A \mapsto G(F(A))\]
+对$\mathcal{A}$中的任意一个态射$f \colon A \rightarrow B$, \[(f \colon A \rightarrow B) \mapsto (G(F(f)) \colon G(F(A)) \rightarrow G(F(b))) \]则GF是一个函子。
+
+很自然地，因为函子可以进行复合运算，那么是否存在一个以所有范畴为对象，函子为态射的范畴? 但是遗憾的是两个范畴之间的函子的全体未必是一个集合。但是我们把目光限制在所有小范畴上时，我们的确可以得到一个以所有小范畴为对象，以小范畴之间函子为态射的范畴$\bf(Cat)$
+
+\begin{definition}
+设$F \colon \mathcal{C} \rightarrow \mathcal{D}$是一个函子。如果存在函子$G \colon \mathcal{D} \rightarrow \mathcal{C}$使得$GF=1_{\mathcal{C}},FG = 1_{\mathcal{D}}$,则称$F$是范畴$\mathcal{C}$到范畴$\mathcal{D}$的一个$\textbf{同构}$（isomorphism）。换一句话来说如果存在范畴$\mathcal{C}$到$\mathcal{D}$的同构$F \colon \mathcal{C} \rightarrow \mathcal{D}$,则称范畴$\mathcal{C}$与$\mathcal{D}$是同构的。
+\end{definition}
+
+
 
 \begin{flushleft}
 \textbf{c-Functor} \\
@@ -108,7 +123,7 @@ $F \colon \mathcal{C}_1 \times \mathcal{C}_2 \rightarrow \mathcal{D}$
 
 \end{flushleft}
 
-
+\pagebreak
 \begin{flushleft}
 $\textbf{自然双函子}$,好吧它的真正名字叫$\textbf{射影函子}$ \\
 \begin{center}
@@ -134,7 +149,66 @@ $P_{\mathcal{D}} \colon \mathcal{C} \times \mathcal{D} \rightarrow \mathcal{D},\
 \end{tikzcd}
 \end{center}
 
-\section{自然变换}
+\section{Naturality}
+\begin{definition}
+
+\textbf{自然变换}（natural transformation）
+设$\mathcal{C}$与$\mathcal{D}$是两个范畴，$F \colon \mathcal{C}\rightarrow \mathcal{D}$与$G \colon \mathcal{C} \rightarrow \mathcal{D}$,一个自然变换下面箭头组成
+\begin{itemize}
+	\item 一个箭头 $\alpha_c \colon F_c \rightarrow G_c$表示对于每一个对象$c \in \mathcal{C}$,这些箭头的“collection”（注意没有用集合的概念）定义了自然变换的组成部分。
+\end{itemize}
+所有任意的态射$f \colon c \rightarrow c' \in \mathcal{C}$,下面图交换（$G(f)\alpha_{c}=\alpha_{c'}F(f)$）：
+\begin{center}
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRADEB9AYxAF9S6TLnyEUARnJVajFmwDiPfoJAZseAkTLjp9Zq0QdOwbgHI+yoetFFJO6nrmHFJ8-2kwoAc3hFQAMwAnCABbJDIQHAgkSRl9NgAdBMY0AAs6JQEA4LDECKikACZqBjoAIxgGAAVhDTEQQKwvVJwQB1kDDn9LECDQmOoCxABmdvjnbqzenKLB6JGS8sqa601DRubWsacQDNcLPgo+IA
+\begin{tikzcd}
+F_c \arrow[r, "\alpha_c"] \arrow[d, "Ff"'] & G_c \arrow[d, "Gf"] \\
+F_{c'} \arrow[r, "a_{c'}"']                & G_{c'}             
+\end{tikzcd}
+\end{center}
+
+\end{definition}
+注意交换图里面的所有态射都属于$\mathcal{D}$，如果自然变换$\alpha \colon F \rightarrow G$满足对任意的$c \in ob\mathcal{C} , \alpha_{c}:F(A) \rightarrow G(A)$是一个同构，则称$\alpha$是$\textbf{自然同构}$(natural isomorphism) 
+
+这个自然变换的定义看起来还是有一些抽象，如果在一个自然变换中，把对象$c$看成一个变量，$\alpha$的domain和codomain都可以用$c$来表示，而这些箭头是"collection"都是目标范畴的态射，所以定义可以形象的表示为
+\begin{center}
+$\alpha \colon ob\mathcal{C} \rightarrow Mor\mathcal{D}$
+\end{center}
+
+\pagebreak
+\begin{lemma}
+设$F,G,H \colon \mathcal{C} \rightarrow \mathcal{D}$和$T \colon \mathcal{D} \rightarrow \mathcal{C}$是函子，$\alpha \colon F \rightarrow G, \beta \colon G \rightarrow H$是自然变换，则
+\begin{itemize}
+ \item $\beta\alpha \colon F \rightarrow H \colon c \mapsto(F(c) \xrightarrow{\beta_c\alpha_c} H(c))$是一个自然变换
+ \begin{center}
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRADEB9AYxAF9S6TLnyEUARnJVajFmwDiPfoJAZseAkQBMU6vWatEIABJKBQ9aKJlx0-XKNdg3AOR9lFkZomlbe2YYgis5uHqrCGmLIOn4yBmymIe580jBQAObwRKAAZgBOEAC2SGQgOBBIknEOIAA6tYxoABZ0Zir5RZXU5Ug6IAx0AEYwDAAKEVZGDDA5OCD+8Ub1wzitvOYgHcWIfT2IAKwLNcY5YVtIACzdFQdHgcswq5xJZwXbVXtX1YHypxvniAAzNdLnc2PVGi1nq5ku03iUQUCwY4-hQ+EA
+	\begin{tikzcd}
+F_c \arrow[r, "\alpha_c"] \arrow[d, "Ff"] & G_c \arrow[r, "\beta_c"] \arrow[d, "Gf"] & H_c \arrow[d, "Hf"] \\
+F_{c'} \arrow[r, "\alpha_{c'}"]           & G_{c'} \arrow[r, "\beta_{c'}"]           & H_{c'}             
+	\end{tikzcd}
+ \end{center}
+	\item $\alpha T \colon FT \rightarrow GT \colon c' \mapsto (FT(c') \xrightarrow{\alpha_{T(c')}} GT(c'))$是一个自然变换
+	\item $T\alpha \colon TF \rightarrow TG \colon c \mapsto (TF(c) \xrightarrow{T(\alpha_{c})} TG(c))$是一个自然变换
+\end{itemize}
+\end{lemma}
+
+
+上面这个第一个结论是一个很显然的结论，两个交换图拼在一起还是一张交换图,所以自然变换之间是可以进行复合运算的，特殊地，每个函子$F$都存在一个自身到自身单位自然变换$1_F \colon F \rightarrow F$,其实除了上面第一个结论之外还有两个$\alpha T$和$T\alpha$函子和自然变换的复合我没有看懂，似乎domain和codamin都是函子复合。
+
+如果$\mathcal{C}$和$\mathcal{D}$都是小范畴，则以范畴$\mathcal{C}$到范畴$\mathcal{D}$的所有函子为对象，以自然变换为态射可以形成一个范畴$[\mathcal{C},\mathcal{D}]$,称为$\textbf{函子范畴}$。
+
+\begin{example}
+设 $P \colon Set \rightarrow Set $是幂集函子，它和单位函子$1_{Set}$构成一个自然变换，因为下图交换
+\begin{center}
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAEEQBfU9TXfIRQAmclVqMWbAAoAKdgEpuvEBmx4CRMsPH1mrRCABCyvusFFRO6nqmG5RpV3EwoAc3hFQAMwBOEAFskMhAcCCQARhtJAxAAHTiAIxgcOgB9Th4ffyDEELCkURAGOmSGaX4NIRBfLDcACxwQaP02b1MQP0DC6gLEAGYWu3iklPSTLM6cyN7wgaHYuW8nCi4gA
+\begin{tikzcd}
+A \arrow[rr, "\beta_A"] \arrow[dd, "f"'] &  & P(A) \arrow[dd, "P(f)"] \\
+                                         &  &                         \\
+B \arrow[rr, "\beta_B"]                  &  & P(B)                   
+\end{tikzcd}
+\end{center}
+\end{example}
+我在想这和函子$P$的定义有什么区别?注意这里$\beta_A$是集合元素之间的映射对任意的$x \in A$有$x \mapsto \{x\} \in P(A)$，而不是函子定义的对象映射,这里存在的自然变换是$\alpha \colon 1_{Set} \rightarrow P$,其中$1_{Set}$是范畴$Set$的单位函子。
+
 
 
 \end{document}
