@@ -1,19 +1,242 @@
 \documentclass{article}
 \usepackage{ctex}
+%\usepackage{math490}
 \usepackage{tikz}
+\usetikzlibrary{cd}
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usetikzlibrary{cd}
-\usepackage{indentfirst}
-
+\usepackage{unicode-math} %为了花体数字
+%\usepackage[bbgreekl]{mathbbol}
+\usepackage[all,cmtip]{xy} %画交换图的package
+\usepackage{xspace}
 
 %theorem,corollary,lemma
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{corollary}{Corollary}[theorem]
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{definition}[theorem]{Definition}
+%\newtheorem{example}[theorem]{Example}
+
 \newtheorem{theorem}{Theorem}[section]
-\newtheorem{corollary}{Corollary}[theorem]
 \newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{example}[theorem]{Example}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{exercise}{Exercise}[section]
+
+
+\newcommand{\defeq}{\coloneqq}
+\newcommand{\eqdef}{\eqqcolon}
+
+% shortcuts for various fonts
+\newcommand{\tbf}{\textbf}
+\newcommand{\mcl}{\mathcal}
+\newcommand{\mbf}{\mathbf}
+\newcommand{\mbb}{\mathbb}
+\newcommand{\msr}{\mathscr}
+\newcommand{\mfr}{\mathfrak}
+\newcommand{\msf}{\mathsf}
+\newcommand{\mrm}{\mathrm}
+
+% shortcuts for common categories
+\newcommand*{\cat}[1]{\textsf{#1}\xspace}
+\newcommand{\Cat}{\textsf{Cat}\xspace}
+\newcommand{\CAT}{\textsf{CAT}\xspace}
+\newcommand{\Set}{\textsf{Set}\xspace}
+\newcommand{\Fin}{\textsf{Fin}\xspace}
+\newcommand{\Top}{\textsf{Top}\xspace} % replaced logical Top ⫪
+\newcommand{\Ring}{\textsf{Ring}\xspace}
+\newcommand{\Field}{\textsf{Field}\xspace}
+\newcommand{\Group}{\textsf{Group}\xspace}
+\newcommand{\Monoid}{\textsf{Monoid}\xspace}
+\newcommand{\Ab}{\textsf{Ab}\xspace}
+\newcommand{\Rng}{\textsf{Rng}\xspace}
+% these can only be used in math mode
+% if you can come up with a macro that works in both tell me
+\newcommand{\Setp}{\textsf{Set}_*}
+\newcommand{\Finp}{\textsf{Fin}_*}
+\newcommand{\Topp}{\textsf{Top}_*}
+\newcommand*{\Mod}[1]{\textsf{Mod}_{#1}}
+\newcommand*{\Mat}[1]{\textsf{Mat}_{#1}}
+\newcommand*{\Vect}[1]{\textsf{Vect}_{#1}}
+
+\newcommand{\zero}{\mbb{0}}
+\newcommand{\one}{\mbb{1}}
+\newcommand{\two}{\mbb{2}}
+\newcommand{\three}{\mbb{3}}
+\newcommand{\four}{\mbb{4}}
+\newcommand{\five}{\mbb{5}}
+\newcommand{\six}{\mbb{6}}
+\newcommand{\seven}{\mbb{7}}
+\newcommand{\eight}{\mbb{8}}
+\newcommand{\nine}{\mbb{9}}
+
+\newcommand{\Proj}{\text{\bf Proj}}
+\newcommand{\Affine}{\text{\bf Affine}}
+
+% blackboard bold shortcuts
+\renewcommand{\AA}{\mathbb{A}} % replaced Angstrom symbol Å
+\newcommand{\BB}{\mathbb{B}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\DD}{\mathbb{D}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\KK}{\mathbb{K}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+\renewcommand{\SS}{\mathbb{S}}
+\newcommand{\ZZ}{\mathbb{Z}}
+
+% sans serif shortcuts
+\newcommand{\sA}{\mathsf{A}}
+\newcommand{\sB}{\mathsf{B}}
+\newcommand{\sC}{\mathsf{C}}
+\newcommand{\sD}{\mathsf{D}}
+\newcommand{\sE}{\mathsf{E}}
+\newcommand{\sF}{\mathsf{F}}
+\newcommand{\sG}{\mathsf{G}}
+\newcommand{\sH}{\mathsf{H}}
+\newcommand{\sJ}{\mathsf{J}}
+\newcommand{\sP}{\mathsf{P}}
+
+% script shortcuts -- NOT USED FOR CATEGORIES, USE mathsf
+% note: cD, cH, cL, and cR were commands in an earlier version of xypic now
+% considered obsolete, the file xyv2.tex still defines them, hence the
+% renewcommand
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}} % see note
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}} % see note
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cL}{\mathcal{L}} % see note
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cZ}{\mathcal{Z}}
+
+\newcommand{\mm}{\mathfrak{m}}
+\newcommand{\pp}{\mathfrak{p}}
+\newcommand{\qq}{\mathfrak{q}}
+\newcommand{\ee}{\mathfrak{e}}
+
+\newcommand{\bC}{{\bf C}}
+\newcommand{\bD}{{\bf D}}
+
+% shortcuts for various greek letters
+\newcommand{\al}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\gm}{\gamma}
+\newcommand{\Gm}{\Gamma}
+\newcommand{\de}{\delta}
+\newcommand{\De}{\Delta}
+\newcommand{\ep}{\epsilon}
+\newcommand{\ze}{\zeta}
+\renewcommand{\th}{\theta} % replaced thorn þ
+\newcommand{\Th}{\Theta}
+\newcommand{\io}{\iota}
+\newcommand{\ka}{\kappa}
+\newcommand{\lm}{\lambda}
+\newcommand{\Lm}{\Lambda}
+\newcommand{\sm}{\sigma}
+\newcommand{\Sm}{\Sigma}
+\newcommand{\om}{\omega}
+\newcommand{\Om}{\Omega}
+
+% for embedding text in display style math
+\newcommand*{\qtextq}[1]{\quad\text{#1}\quad}
+\newcommand*{\qtext}[1]{\quad\text{#1}}
+\newcommand*{\textq}[1]{\text{#1}\quad}
+\newcommand{\IN}{\text{ in }}
+\newcommand{\AND}{\text{ and }}
+\newcommand{\OR}{\text{ or }}
+\newcommand{\ST}{\text{ such that }}
+\newcommand{\IF}{\text{ if }}
+
+% 1/<stuff> seems to be the most common fraction
+\newcommand*{\recip}[1]{\frac{1}{#1}}
+\newcommand*{\trecip}[1]{\tfrac{1}{#1}}
+\newcommand*{\ipr}[2]{\left\langle{#1},{#2}\right\rangle}
+
+\newcommand{\id}{1}
+\newcommand{\op}{\textrm{op}}
+\newcommand{\iso}{\textrm{iso}}
+\newcommand{\nil}{\emptyset}
+\newcommand{\by}{\times}
+\newcommand{\emb}{\hookrightarrow}
+\newcommand{\wto}{\rightharpoonup}
+\newcommand{\bic}{\leftrightarrow}
+\newcommand{\To}{\Rightarrow}
+\newcommand*{\inv}[1]{{#1}^{-1}}
+
+\newcommand{\Ztwo}{\ZZ\sqbraq{\sqrt{2}}}
+\newcommand{\rtwo}{\sqrt{2}}
+\newcommand*{\lst}[3][1]{{#2}_{#1},\dots,{#2}_{#3}}
+\newcommand*{\fm}[3][i]{\{{#2}_{#1}\}_{{#1}\in{#3}}}
+
+% function defintions
+\newcommand*{\xfunc}[4]{{#2}\colon{#3}{#1}{#4}}
+\newcommand*{\func}[3]{\xfunc{\to}{#1}{#2}{#3}}
+\newcommand*{\Func}[3]{\xfunc{\To}{#1}{#2}{#3}}
+\newcommand*{\mono}[3]{\xfunc{\rightarrowtail}{#1}{#2}{#3}}
+\newcommand*{\afunc}[4]{\xfunc{\leftrightarrows}{#1}{#3}{#4}\noloc{#2}}
+\newcommand*{\epic}[3]{\xfunc{\twoheadrightarrow}{#1}{#2}{#3}}
+\newcommand*{\incl}[3]{\xfunc{\hookrightarrow}{#1}{#2}{#3}}
+\newcommand*{\pfunc}[3]{\xfunc{\rightrightarrows}{#1}{#2}{#3}}
+\newcommand*{\idfunc}[1]{\func{\id_{#1}{#1}{#1}}}
+\newcommand*{\oper}[2]{\func{#1}{{#2}\by{#2}}{#2}}
+\newcommand*{\nper}[3]{\func{#1}{{#2}^{#3}}{#2}}
+\newcommand*{\maps}[3]{\xfunc{\mapsto}{#1}{#2}{#3}}
+\newcommand*{\isom}[3]{\xfunc{\cong}{#1}{#2}{#3}}
+
+\newcommand*{\con}[3]{{#1}\equiv{#2}\mod{#3}}
+\newcommand*{\pcon}[3]{{#1}\equiv{#2}\pmod{#3}}
+
+% auto resize delimiters
+\newcommand*{\norm}[1]{\left\|{#1}\right\|}
+\newcommand*{\abs}[1]{\left\lvert{#1}\right\rvert}
+\newcommand*{\qty}[1]{\left({#1}\right)}
+\newcommand*{\sqr}[1]{\left[{#1}\right]}
+\newcommand*{\floor}[1]{\left\lfloor{#1}\right\rfloor}
+\newcommand*{\ceil}[1]{\left\lceil{#1}\right\rceil}
+\newcommand*{\angl}[1]{\left\langle{#1}\right\rangle}
+
+\newcommand*{\basis}[2]{\left\{{#1}_1,\dots,{#1}_{#2}\right\}}
+\newcommand*{\inlnmat}[1]{\left(\begin{smallmatrix}#1\end{smallmatrix}\right)}
+\newcommand*{\dispmat}[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand*{\adj}[1]{\!\sqr{#1}}
+\newcommand*{\fld}[1]{\!\qty{#1}}
+\newcommand*{\fps}[1]{\!\sqr{\!\sqr{#1}\!}}
+\newcommand*{\lps}[1]{\!\qty{\!\qty{#1}\!}}
+
+% this is the preferred way to make non-italic text for function and operator
+% names; it automatically handles spacing
+\DeclareMathOperator{\ob}{ob}
+\DeclareMathOperator{\mor}{mor}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\len}{len}
+\DeclareMathOperator{\cod}{cod}
+\DeclareMathOperator{\colim}{colim}
+\DeclareMathOperator{\range}{range}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Gal}{Gal}
 
 
 \title{Category Theory}
@@ -46,8 +269,32 @@
 函子保留同构
 \end{lemma}
 
+\begin{example}
+如果把群（Group）看做一个对象的范畴，那么群范畴和群范畴的函子是什么？
+\end{example}
+首先回忆一下，群范畴只有单个对象$x$,群里面的元素对应群范畴里面的态射，其domain和codomain都是对象$x$，群里面的单位元对应群范畴里面的$1_x$单位态射，群元素之间的乘法运算对应态射之前的映射。
+
+定义两个群范畴$C$和$D$,他们的对象分别是$x_1$和$x_2$,他们之前存在的函子定义为$F$,很自然地$F$对对象的作用只能是$F(x_1) = x_2$，所以我们主要关注问题是$F$对态射的作用，首先对$1_x$,我们有$F(1_x)=1_{F(x)}$,即$1_{x_1}$对应$1_{x_2}$。另外还必须要求对任意态射$f \in F$有$F(dom(f))=dom(F(f))$和$F(cod(f))=cod(F(f))$，根据前面的群范畴的定义，我们知道态射$f$的domain和codomain是相等的，所以我们有$F(dom(f))=dom(F(f))=cod(F(f))=F(cod(f))=x_2$，这个要求是比较trivial的,最后我们要求如果态射$f$和$g$在$C$里面如果可以复合，则$F(fg)=F(f)F(g)$,在群范畴里面所有态射都是可复合的，所以对任意的$f$和$g$,我们都有上面的结论，所有性质都结合起来看，函子$F$保留了单位元和运算结构，还有一个trivial的封闭性，所以其实这个$F$就是一个群同态（homomorphism）
+
+
+\begin{example}
+函子$F: \mathcal{C} \rightarrow \mathcal{D}$并不一定定义了一个$\mathcal{D}$的子范畴
+\end{example}
+
+定义一个顺序范畴$\mathcal{C}  = \mathbb{2}$，即：
+\[\xymatrix{0\ar[r]^f&1.}\]
+
+所以范畴$\mathcal{C}$里面有三个态射$1_0,1_1,f$，然后我们再构造一个范畴$\mathbb{D}$,里面存在一个满态射(endomorphism)$g$:
+\[\xymatrix{x\ar[r]^g&x.}\]
+但是$gg$不等于$1_x$和$g$,这很容易办到，例如$x={1,2,3}$在$Set$中，$g$表示函数$1 \rightarrow 2, 2\rightarrow 3 ,3 \rightarrow 1$,那么$gg$表示$1 \rightarrow 3, 2 \rightarrow 1 , 3 \rightarrow 2$, 很显然$gg$不等于$1_x$和$g$,但是还是一个endomorphism，这也说明endomorphism的复合还是endomorphism。
+
+接着我们来开始构造一个$F$, $F(0)=F(1)=x$,且$F(0_1)=1_x,F(1_1)=1_x,F(f)=g$,$mathcal{C}$中三个态射有四种复合方式，为了说明$F$是一个函子，还需要证明$F$保留了这四个复合结构，$F(1_11_1)=F(1_0)F(1_0)=1_x,F(0_10_1)=F(0_1)F(0_1)=1_x,F(f0_1)=F(f)F(0_1)=g1_x,F(1_1f)=1_xg$,很显然这是$F$的确保持了复合结构，$F$的像里面只有$1_x,g$,根据范畴复合公理$gg$是可以复合的，但是$gg \notin img_F$，所以函子$F$并没有定义一个子范畴。
+
+
 \begin{flushleft}
-\textbf{同变函子和逆变函子}（covariant and contravariant）\\
+\textbf{同变函子和逆变函子}（covariant and contravariant)
+\end{flushleft}
+
 \begin{definition}
 前面定义的函子也叫同变函子，那么一个逆变函子从$C$到$D$为$F: \mathcal{C}^{op} \rightarrow \mathcal{D} $,也是由两个映射组成
 \begin{itemize}
@@ -60,8 +307,7 @@
 	\item 对任意的可复合的$f$,$g \in \mathcal{C}$,$Ff \cdot Fg = F(g \cdot f)$
 	\item 对任意的对象$c \in \mathcal{C}$,$F(1_c)=1_{F_c}$
 \end{itemize}
-相对于同变函子来说，$f$对应的像$Ff$的箭头反过来了，下面这个图可以很形象的描述	
-\end{flushleft}
+相对于同变函子来说，$f$对应的像$Ff$的箭头反过来了，下面这个图可以很形象的描述
 
 \begin{center}
 $C^{op} \xrightarrow{F} \mathcal{D}$ \\
@@ -70,7 +316,38 @@ $C^{op} \xrightarrow{F} \mathcal{D}$ \\
 c \arrow[r, maps to] \arrow[d, "f"] & F_c                    \\
 c' \arrow[r, maps to]               & F_{c'} \arrow[u, "Ff"]
 \end{tikzcd}
-\end{center}
+\end{center}	
+
+\begin{definition}
+如果范畴$\mathcal{C}$是局部小的，可以用任意一个对象$c \in \mathcal{C}$来表示一对同变函子和逆变函子：
+\[
+	\xymatrix@-1pc{
+	\cat{C}\ar[rr]^{\cat{C}(c,-)} & & \Set & \cat{C}^\op \ar^{\cat{C}(-,c)}[rr] & & Set \\
+	x\ar[dd]_{f} & \mapsto & \cat{C}(c,x)\ar[dd]^{f_*} & x\ar[dd]_{f} & \mapsto & \cat{C}(x,c) \\
+	  &\mapsto & & & \mapsto & &\\
+	y & \mapsto & \cat{C}(c,y) & y & \mapsto & \cat{C}(y,c)\ar[uu]_{f^*} \\
+	}
+	\]
+\end{definition}
+
+首先需要给函子$\cat{C}(c,-)$和$\cat{C}(-,c)$的定义，函子$\cat{C}(c,-)$表示把
+$x \in \cat{C}$映射到包含$c$到$x$箭头集合$\cat{C}(c,x)$，对偶地，函子$\cat{-,c}$表示把$x \in \cat{C}$映射到包含到$x$到$c$箭头集合$\cat{C}(x,c)$. 对于态射而言，$\cat{C}(c,-)$把态射$\func{f}{x}{y}$映射到$\func{f_*}{\cat{C}(c,x)}{\cat{C}(c,y)}$,对偶形式这里就不累述了，现在要证明他们确实是一个函子
+
+我们来检验他们是否满足函子的公理，从两个方面出发是否保留了复合结构和单位态射:
+
+定义$\cat{C}$中两个可复合的态射$\func{f}{x}{y},\func{g}{w}{x}$,我们需要证明$\cat{C}(c,-)(fg)=\cat{C}(c,-)(f)\cat{C}(c,-)(g)$. 因为$\func{fg}{w}{y}$,所以\[\func{\cat{C}(c,-)(fg)}{\cat{C}(c,-)(w)}{\cat{C}(c,-)(y)}\],而$\dom\cat{C}(c,-)(f)=\cod\cat{C}(c,-)(g)=\cat{C}(c,x)$,所以\[\func{\cat{C}(c,-)(f)\cat{C}(c,-)(g)}{\cat{C}(c,-)(w)}{\cat{C}(c,-)(y)}\],完成我们的证明目标。
+
+对于单位态射而言，我们证明目标是$\cat{C}(c,-)(1_x)=1_{\cat{C}(c,-)(x)}$, 首先对任意的对象$x\in\cat{C}$,$\func{1_x}{x}{x}$,有\[\func{\cat{C}(c,-)(1_x)}{\cat{C}(c,-)(x)}{\cat{C}(c,-)(x)}\],对应的\emph{post composition with $1_x$} $\func{1^{*}_{x}}{\cat{C}(c,x)}{\cat{C}(c,x)}$，对任意$a\in\cat(c,x)$,$1^{*}_{x}$把$a\mapsto 1_xa$,即$a \mapsto a$,所以$1_{\cat{C}(c,-)(x)} = 1_{\cat{C}(c,x)}$，因为$1_{\cat{C}(c,x)}$就是把$a \mapsto a$,证明目标完成，
+
+最后还需要证明$\cat{C}(-,c)$是一个逆变函子，利用对偶性质，$\func{\cat{C}^\op(c,-)}{\cat{C}^\op}{\Set}$也是一个函子，同时它也是一个逆变函子，自然地$\cat{C}^\op(c,-) = \cat{C}(-,c)$，证闭。
+
+\begin{example}
+函子$\sC^{\op}\to \sD$和函子$\sC\to \sD^{\op}$有什么区别？函子$\sC\to\sD$和函子$\sC^{\op}\to \sD^{\op}$又有什么区别？
+\end{example}
+
+先给结论都是没有区别的，现证函子$\sC\to\sD$和函子$\sC^{\op}\to \sD^{\op}$没有区别，定义$F$为$\sC\to\sD$的函子，即$F$满足对$\func{f}{x}{y}$和$\func{g}{w}{x}$有$F(fg)=F(f)F(g)$,$\sC^{op}$和$\sC$里面的对象是相同的，态射的箭头转向，即$\func{f}{y}{x}$和$\func{g}{x}{w}$,把$F$作用在它们上$F(gf)=F(g)F(f)$也是成立的，其中$F(g) \in \sD^{op}$,所以两个函子没有区别。
+
+下面再用一个小trick $({\sC^{op}})^{op}=\sC$, 再用一下上面已经证明的结论$\sC^{op}\to\sD$等价为$({\sC^{op}})^{op}\to\sD^{op}$, 即$\sC\to\sD^{op}$。
 
 \begin{flushleft}
 \textbf{函子的复合}
@@ -84,6 +361,7 @@ c' \arrow[r, maps to]               & F_{c'} \arrow[u, "Ff"]
 设$F \colon \mathcal{C} \rightarrow \mathcal{D}$是一个函子。如果存在函子$G \colon \mathcal{D} \rightarrow \mathcal{C}$使得$GF=1_{\mathcal{C}},FG = 1_{\mathcal{D}}$,则称$F$是范畴$\mathcal{C}$到范畴$\mathcal{D}$的一个$\textbf{同构}$（isomorphism）。换一句话来说如果存在范畴$\mathcal{C}$到$\mathcal{D}$的同构$F \colon \mathcal{C} \rightarrow \mathcal{D}$,则称范畴$\mathcal{C}$与$\mathcal{D}$是同构的。
 \end{definition}
 
+两个范畴对象和态射是一个双射。
 
 
 \begin{flushleft}
@@ -123,7 +401,7 @@ $F \colon \mathcal{C}_1 \times \mathcal{C}_2 \rightarrow \mathcal{D}$
 
 \end{flushleft}
 
-\pagebreak
+
 \begin{flushleft}
 $\textbf{自然双函子}$,好吧它的真正名字叫$\textbf{射影函子}$ \\
 \begin{center}
@@ -131,7 +409,6 @@ $P_{\mathcal{C}} \colon \mathcal{C} \times \mathcal{D} \rightarrow \mathcal{C},\
 $P_{\mathcal{D}} \colon \mathcal{C} \times \mathcal{D} \rightarrow \mathcal{D},\left( A,B \right)\mapsto B,\left( f,g \right)\mapsto g$ \\
 \end{center} 
 \end{flushleft}
-
 
 
 
@@ -149,11 +426,81 @@ $P_{\mathcal{D}} \colon \mathcal{C} \times \mathcal{D} \rightarrow \mathcal{D},\
 \end{tikzcd}
 \end{center}
 
+
+\begin{example}
+给定两个函子$\func{F}{\sD}{\sC}$和$\func{G}{\sE}{\sC}$,可以构造一个逗号范畴(comma category) $F \downarrow G$:
+	\begin{enumerate}
+		\item 对象为三元组$(d \in \sD,e\in \sE,\func{f}{F(d)}{G(e)} \in \sC)$
+		\item 态射$\qty{d,e,f} \rightarrow \qty{d',e',f'}$,用一个序对表示$\qty{\func{h}{d}{d'},\func{k}{e}{e'}}$，即下面正方形交换
+		\[\xymatrix{
+					F(d) \ar[d]_{F(h)} \ar[r]^{f} & G(e)\ar[d]^{G(k)}  \\
+			F(d')\ar[r]_{f'} &G(e)'}\]
+			$f'F(h) = G(k)f$
+	\end{enumerate}
+	同时定义了一对射影函子$\func{\dom}{F\downarrow G}{\sD}$ 和
+	$\func{\cod}{F\downarrow G}{\sE}$	
+\end{example}
+
+首先我们要证明逗号范畴它确实是一个范畴，但这个范畴的出现就看起来非常突兀，但是它似乎非常有作用，能把不同的两个范畴弄到一个范畴里面。逗号范畴里面的态射统一用$\qty{\func{h}{d}{d'},\func{k}{e}{e'}} \qty{f,f'}$表示，后面的括号内容特殊标识态射的domain和codomain。
+
+要说明它是一个范畴，首先我们定义它每个对象的单位态射和态射复合：
+
+对于任意一个对象$\qty{d,e,f}$简写为$c$,那对应的单位态射，我们定义为\[ 1_c  = \qty{1_{d},1_{e}}\qty{f,f}\]其中$1_d$和$1_e$分别为$d$和$e$的单位态射，很自然的下面正方形交换
+\[\xymatrix{ &Fd \ar[d]_{F1_{d}} \ar[r]^{f} & Ge\ar[d]^{G1_{e}}
+						 \\  & Fd\ar[r]_{f} &Ge   } \]
+$1_c$的domain和codomain都是$\qty{d,e,f}$
+
+再定义态射复合，对于两个形如
+$$\qty{\func{h}{d}{d_1},\func{k}{e}{e_1}} \qty{f,f_1} \AND
+	\qty{\func{h}{d_1}{d_2},\func{k}{e_1}{e_2}} \qty{f_1,f_2}$$ 
+表示为
+$$\func{\al}{(d,e,f)}{(d_1,e_1,f_1)} \AND
+	\func{\be}{(d_1,e_1,f_1)}{(d_2,e_2,f_2)}.$$ $\al$和$\be$的复合表示为
+\[\be  \al=\qty{\func{h'  h}{d}{d_{2}},\func{k'  k}{e}{e_{2}}}\qty{f,f_2}\]用交换图表示为\[\xymatrix{ Fd \ar[d]_{Fh} \ar[r]^{f} & Ge\ar[d]^{Gk}  \\
+			Fd_{1} \ar[d]_{Fh'}\ar[r]^{f_{1}}& Ge_{1} \ar[d]^{Gk'} \\
+	Fd_{2} \ar[r]^{f_{2}} &Ge_2 } \]两个正方形交换图拼成了一个长方形交换图，也可以简化为一个正方形\[\xymatrix{ &Fd \ar[d]_{Fh'  Fh}\ar[r]^{f} & Ge\ar[d]^{Gk' Gk}
+			 \\  & Fd_2\ar[r]^{f_2} &Ge_2 }\]
+			 
+完成了单位态射和态射复合的定义，现在需要证明单位态射左右消去律(其实就是证明我们构造的单位态射确实是单位态射)和态射复合的结合性。
+
+用$\al$表示态射$\qty{\func{h}{d}{d'},\func{k}{e}{e'}} \qty{f,f'}$其中的domain和codomain分别表示$c$和$c'$,先证明$\al 1_x$:
+\begin{align*}
+	\al  1_{c } &= \qty{h 1_{d},k 1_{e}}\qty{f,f'}\\
+	&= \qty{h,k}\qty{f,f'} \\
+	 &= \al.
+\end{align*}
+
+接着证明$1_{c'}\al$:
+\begin{align*}
+	1_{c' } \al &= \qty{1_{d'} h, 1_{e'} k}\qty{f,f'}\\
+	&= \qty{h,k}\qty{f,f'}\\
+	&= \al.
+\end{align*}
+
+最后证明态射的结合性，这里定义三个态射$\al$,$\be$和$\gm$分别表示$\qty{\func{h}{d}{d_1},\func{k}{e}{e_1}}$,\\$\qty{\func{h_1}{d_1}{d_2},\func{k_1}{e_1}{e_2}}$和$\qty{\func{h_2}{d_2}{d_3},\func{k_2}{e_2}{e_3}}$:
+\begin{align*}
+	(\gm\be)\al&=((h_2h_1),(k_2 k_1))(f_1,f_3) \al\\
+	&=((h_2 h_1) h,(k_2 k_1) k)(f,f_3)\\
+	&=(h_2(h_1 h),k_2(k_1 k))(f,f_3)\\
+	&=\gm((h_1 h),(k_1 k))(f,f_2)\\
+	&=\gm(\be \al).
+\end{align*}
+
+我们已经证明了逗号范畴确实是一个范畴，接下来我们定义两个函子$\func{\dom}{F \downarrow G}{\sD}$ 和 $\func{\cod}{F \downarrow G}{\sE}$，还是从$F \downarrow G$中的对象和态射出发：
+\begin{align*}
+	\dom\qty{d,e,f} &= d, \dom\qty{h,k}\qty{f,f'} \;\;= h \\
+	\cod\qty{d,e,f} &= e, \cod\qty{h,k}\qty{f,f'} \quad= k.
+\end{align*}
+
+有了定义之后还是和上面一样证明这两个函子确实是函子，这里我就不累述了，直接给出单位态射和态射复合结构的保持:\[\dom\qty{1_{d},1_{e}}\qty{f,f} = 1_d,\cod\qty{1_{d},1_{e}}\qty{f,f} =1_e \]和\[\dom(\be \al) = \dom\qty{h'  h,k'  k}\qty{f,f_2} =h'
+	 h = \dom\be  \dom\al\] \[\cod(\be \al) = \cod \qty{h' h,k' k}\qty{f,f_2}=  k'
+	 k = \cod\be\cod\al.\]
+
 \section{Naturality}
 \begin{definition}
 
 \textbf{自然变换}（natural transformation）
-设$\mathcal{C}$与$\mathcal{D}$是两个范畴，$F \colon \mathcal{C}\rightarrow \mathcal{D}$与$G \colon \mathcal{C} \rightarrow \mathcal{D}$,一个自然变换下面箭头组成
+设$\mathcal{C}$与$\mathcal{D}$是两个范畴，$F \colon \mathcal{C}\rightarrow \mathcal{D}$与$G \colon \mathcal{C} \rightarrow \mathcal{D}$,一个自然变换由下面箭头组成
 \begin{itemize}
 	\item 一个箭头 $\alpha_c \colon F_c \rightarrow G_c$表示对于每一个对象$c \in \mathcal{C}$,这些箭头的“collection”（注意没有用集合的概念）定义了自然变换的组成部分。
 \end{itemize}
@@ -174,7 +521,10 @@ F_{c'} \arrow[r, "a_{c'}"']                & G_{c'}
 $\alpha \colon ob\mathcal{C} \rightarrow Mor\mathcal{D}$
 \end{center}
 
-\pagebreak
+总体来说函子是研究范畴之间的对应关系，自然变换就是用来描述函子之间的对应关系，如何刻画自然变换的最小限制，就是一个有趣的问题，函子建立两个范畴之前的关系是通过范畴间对象和态射的映射来完成的，那么描述两个函子的之间关系也要从这两个方向出发，所以最小的限制条件就是上面的交换图，那么自然体现在什么方面呢？
+
+有一个比较优雅的说法是这些箭头$X$是自然的，前面也说过这些箭头都是自然变换中目标范畴（target）的态射，如果这些态射的domain和codomain是两个函子由一个相同的源范畴里面的同一个对象$A$映射而来，就可以说这些箭头在$A$是自然的，如果源范畴里面存在以$A$为domain的态射，自然地，这个态射的codomain是否也存在这样一个自然的箭头呢？对于每一个object都有这样的箭头存在，就有了上面交换图的存在。说实在的自然的本质我觉得就是这些箭头都是目标范畴存在的态射，并不需要再去额外构造。
+
 \begin{lemma}
 设$F,G,H \colon \mathcal{C} \rightarrow \mathcal{D}$和$T \colon \mathcal{D} \rightarrow \mathcal{C}$是函子，$\alpha \colon F \rightarrow G, \beta \colon G \rightarrow H$是自然变换，则
 \begin{itemize}
@@ -208,6 +558,8 @@ B \arrow[rr, "\beta_B"]                  &  & P(B)
 \end{center}
 \end{example}
 我在想这和函子$P$的定义有什么区别?注意这里$\beta_A$是集合元素之间的映射对任意的$x \in A$有$x \mapsto \{x\} \in P(A)$，而不是函子定义的对象映射,这里存在的自然变换是$\alpha \colon 1_{Set} \rightarrow P$,其中$1_{Set}$是范畴$Set$的单位函子。
+
+\section{Equivalence of categories}
 
 
 
