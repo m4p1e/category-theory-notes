@@ -225,6 +225,7 @@
 % this is the preferred way to make non-italic text for function and operator
 % names; it automatically handles spacing
 \DeclareMathOperator{\ob}{ob}
+\DeclareMathOperator{\fin}{fin}
 \DeclareMathOperator{\mor}{mor}
 \DeclareMathOperator{\dom}{dom}
 \DeclareMathOperator{\len}{len}
@@ -237,6 +238,10 @@
 \DeclareMathOperator{\Aut}{Aut}
 \DeclareMathOperator{\Spec}{Spec}
 \DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\ID}{id}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Conj}{Conj}
+\DeclareMathOperator{\Sect}{Sect}
 
 
 \title{Category Theory}
@@ -268,6 +273,10 @@
 \begin{lemma}
 函子保留同构
 \end{lemma}
+
+定义态射$\func{f}{x}{y}$和$\func{g}{y}{x}$,$fg = 1_x$,$gf=1_y$ \[F(fg)=F(f)F(g)=1_{F(x)} , F(gf)=F(g)F(f)=1_{F(y)}\]
+
+但是反过来并不一定成立，即如果$F(f)$是一个同构，但是$f$不一定是一个同构，举个很简单的例子$\func{F}{\mathbb{2}}{\mathbb{1}}$,$\mathbb{1}$里面所有态射都是同构的，但是$\mathbb{2}$并不是一个群胚(groupoid)。
 
 \begin{example}
 如果把群（Group）看做一个对象的范畴，那么群范畴和群范畴的函子是什么？
@@ -495,6 +504,35 @@ $$\func{\al}{(d,e,f)}{(d_1,e_1,f_1)} \AND
 有了定义之后还是和上面一样证明这两个函子确实是函子，这里我就不累述了，直接给出单位态射和态射复合结构的保持:\[\dom\qty{1_{d},1_{e}}\qty{f,f} = 1_d,\cod\qty{1_{d},1_{e}}\qty{f,f} =1_e \]和\[\dom(\be \al) = \dom\qty{h'  h,k'  k}\qty{f,f_2} =h'
 	 h = \dom\be  \dom\al\] \[\cod(\be \al) = \cod \qty{h' h,k' k}\qty{f,f_2}=  k'
 	 k = \cod\be\cod\al.\]
+	 
+\begin{example}
+见识了逗号范畴的不可思议，它可以把两个不同的范畴弄到一起，也可以把两个范畴弄出来，现在来构造一个特殊逗号范畴，把逗号范畴特殊化为切片范畴$c/\sC$和$\sC/c$。
+\end{example}
+
+这个构造过程，当你把两张相关交互图放在一起比较的时候，你就会发现其实很容易。
+\[ \xymatrix{&c\ar[dr]^g
+		\ar[dl]_f& \\ x \ar[rr]_h && y } \] \[\xymatrix{
+					F(d) \ar[d]_{F(h)} \ar[r]^{f} & G(e)\ar[d]^{G(k)}  \\
+			F(d')\ar[r]_{f'} &G(e)'}\]上面第一张是$c/\sC$中描述态射的交换图，	 首先我们需要逗号范畴交换图里面四个箭头变成三个箭头并且固定$c$,所以逗号范畴中的函子$F$只能是一个顺序范畴$\mathbb{1}$的单位函子,让我们看看现在变成了什么\[\xymatrix{F(0) \ar[d]_{1_c} \ar[r]^{f} & G(e)\ar[d]^{G(k)}  \\F(0)\ar[r]_{f'} &G(e)'}\]然后我们再让$F(0)=c \in C$ \[\xymatrix{c \ar[d]_{1_c} \ar[r]^{f} & G(e)\ar[d]^{G(k)}  \\c\ar[r]_{f'} &G(e)'}\]看起来已经很接近了,这张图还是交换的，现在逗号范畴的对象变成了$\qty{0,e \in E,f}$,而态射变成了$\qty{\func{h}{0}{0},\func{k}{e}{e'}}(f,f')$,其中$0$和$1_0$可以省略代表固定了$c$。但是这里还是有两个范畴，而切片范畴只是由一个范畴构造而成，所以这里最好的选择就是把$G$当成$\sC$的一个单位态射$1_{\sC}$,我们已经可以画一条对角线了\[\xymatrix{c \ar[d]_{1_c} \ar[r]^{f} \ar[rd]^{f'1_c} & x\ar[d]^{k}  \\c\ar[r]_{f'} &y}\],这个特殊的逗号范畴已经很显然是一个切片范畴了。
+			
+
+函子的作用无疑是非常强大的，下面记录一下trivial函子的扩展
+
+\begin{example}
+$\func{\Conj}{Group}{Set}$是一个函子，$\Conj$作用在单个群上表示群共轭等价类的集合，在群里面两个元素如果是共轭的，表示为存在一个n使得$a=nbn^{-1}$成立，则称$a$和$b$共轭，很容易证明这个共轭关系是一个等价关系。当把$\Conj$作用在\emph{the category of groups}上时:
+	\begin{itemize}
+		\item 对任意的群$s$,\(\Conj s = \hat{s}\)
+		\item 对任意的群同态\(\func{f}{s}{t}\),\(\func{\Conj f}{\hat{s}}{\hat{t}}\)对任意的\([x] \in \hat{s}\),\(\Conj f([x])=[f(x)]\)
+	\end{itemize}
+\end{example}
+
+为了证明Conj确实可以扩展到一个函子，得说明几个东西，如果存在一个群同态$\func{f}{s}{t}$,$a,b \in s$,且$a$和$b$共轭,那么存在一个$n$,使得$a=nbn^{-1}$ \[f(a)=f(nbn^{-1})=f(n)f(b)f(n^{-1})=f(n)f(b)f(n)^{-1}\]所以群同态是保留元素共轭结构的，这说明如果$[a]=[b]$,则$[f(a)]=[f(b)]$, 上面$\Conj f$是well-defined。
+
+还是老步骤，需要说明indentiy和composition的保留
+\begin{itemize}
+	\item 对应单位态射对任意的群$s$,对象$x \in s$ \[\Conj 1_s([x])=[1_s(x)]=[x]=1_{\hat{s}}([x])=1_{\Conj s}([x]).\]这个证明感觉很迷，感觉还是要从消去律出发，但是取的是任意的$x$似乎也能说明问题$\Conj 1_s = 1_{\Conj s}$.
+	\item 让$f$和$g$表示两个可复合的态射$fg$,$[x] \in dom(f)$ \[\Conj g\Conj f([x])=\Conj g([f(x)])=[g(f(x))]=[gf(x)]=\Conj (gf([x])).\]
+\end{itemize}
 
 \section{Naturality}
 \begin{definition}
