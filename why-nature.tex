@@ -1,0 +1,73 @@
+\documentclass[UTF8,11pt,a4paper]{ctexart}%UTF-8编码，文字大小11，纸张类型A4
+\usepackage[T1]{fontenc}% 加载宏包 fontenc 防止某些符号显示不正常
+
+\usepackage[textwidth=18cm]{geometry} % 设置页宽=18
+%加载数学宏包
+\usepackage{amsmath}
+\usepackage{amssymb}
+%加载插图宏包 graphicx 以在 pdf 中插入图片
+\usepackage{graphicx}
+
+\usepackage{blindtext}
+\usepackage{bm}
+\parindent=0pt
+\setlength{\parindent}{2em} 
+\usepackage{indentfirst}
+\begin{document}
+
+\newcommand*{\xfunc}[4]{{#2}\colon{#3}{#1}{#4}}
+\newcommand*{\func}[3]{\xfunc{\to}{#1}{#2}{#3}}
+ 
+\title{自然同构为什么自然?}
+\author{枫聆}
+\maketitle
+
+我也好奇自然同构中的自然在这里是什么含义？在这个名字的背后有一个故事，是Eilenbery和Mac Lane's 共同讲述的一个的故事。为什么弄清楚这个故事的含义，前后前后利用一周空闲的时间，大致了解了他们在讲述的一个什么故事，关于向量空间的定义我之前已经忘的差不多了，只好重头开始学一遍。那么到底自然是什么东西呢？
+
+自然同构是刻画两个functors之间的关系，更一般地情况，自然同构是自然变换的特殊情况，从自然变换的定义中，我们知道自然变换是由一个一个的component组成的，而每个component其实是target category里面的morphism，这样看起来我们并没有引入其他的对象来描述两个functors的关系，这也是natural transformation的定义$\textsf{Obj}\mathcal{C} \rightarrow \textsf{Mor}\mathcal{D}$,它描述是这样的一种内在的关系。
+
+好了，开始进入正题，为什么了理解这个背后故事中的例子，需要一些前提的知识：
+
+\begin{itemize}
+	\item 向量空间是R-module的特殊情况，即$R=k$,$k$是一个field，这个时候称为\textsl{k-vector space}.
+	\item 还需要了解一下基和维数的概念，一组基可以span向量空间里面的所有向量，如果存在这样一组基，且基的个数是有限的，则称其为向量空间的维数。
+	\item 向量空间$V$的对偶空间$V^{*}$，是由所有的线性函数$\func{f}{V}{\mathbb{R}}$构成的。
+	\item 向量空间$V$的双对偶空间$V^{**}$,是由所有的线性函数$\func{g}{V^{*}}{\mathbb{R}}$构成的。
+	
+\end{itemize}
+
+首先考虑一个有限维的向量空间$V$ over $\mathbb{R}$和其对偶空间$V^{*}$，现在来证明它们是同构的，首先选择$V$的一组基$B=\{v_1,v_2,\ldots,v_n\}$,再定义一组$V^{*}$里面特殊的线性函数$\func{v_i^{*}}{V}{\mathbb{R}}$ 
+	\[v_i^{*}(v_j)=\left\{ 
+	\begin{array}{rcl}
+	1 & i=j \\
+	0 & i\neq j
+	\end{array}
+	\right.
+	\]
+	
+$B^{*}=\{v_1^{*},v_2^{*},\ldots,v_n^{*}\}$则是$V^{*}$的一组基，根据$R-module$的homomorphism的定义，如果同构它们之间应该存在一个线性函数$\func{\phi}{V}{V^{*}}$是一个双射，现在给定这个函数为$\phi(v_i)=v_i^{*}$,把$V$的基映到$V^{*}$基上。
+
+为了理解这样做的情况下$V$和$V^{*}$是同构的，假设任意一个线性函数$f(v)$,$v \in V$,可以把$v$用$B$来表示，即$v=\sum\limits_{i=1}^{n}{k_iv_i}$，然后我们再把$f(v)$稍微调整一下\[f(v)=f\left(\sum\limits_{i=1}^{n}{k_iv_i}\right)=\sum\limits_{i=1}^{n}{v_i^{*}(v)f(v_i)}\]这里用到了$f(kv)=kf(v)$,可以看到$f(v)$是可以被$B^*$ span的，为了说明$\phi$是well-defined,设$g(v)=f(v)$,即$f(v_i)=g(v_i)$,这说明确定一个$f(v)$只需要确定$f$对$B$的作用,$\phi(\sum\limits_{i=1}^{n}{k_iv_i})=\sum\limits_{i=1}^{n}{k_iv_i^{*}}=f(v)$,但是怎么和上面的$f(v)$的形式不同呢？在上面中$k_i$被替换掉了，在这里又莫名其妙的出现了？其实本质上相同的，$f(v_i)$和$k_i$都是属于$\mathbb{R}$.这个同构的前提是固定了$V$中的一组基，由之确定了$V^{*}$中的一组基，任意的一组基都可以构造出来这样一种同构，没有哪一种基相对于其他基是更natural的，所有没有一种同构$\func{\phi}{V}{V*}$是更preferred.
+
+现在我们再来考虑$V$的双对偶空间$V^{**}$,我们现在也是否需要先选择$V$的一组基$B$，再确定$V^{*}$的一组基$B^{*}$，最后再确定$V^{**}$的一组基$B^{**}$呢?实际上没有必要的，可以直接定义$\func{\phi_{V}}{V}{V^{**}}$,对$v \in V$,有$\phi_{V}(v)(f)=f(v)$，表示$\func{\phi_{V}(v)}{V^*}{\mathbb{R}}$把$f \in V^{*}$映到$f(v)$上.我们来尝试理解$\phi_{V}(v)$,它可以表示为$\{f(v),g(v),\ldots\}$ indexed set,如果$\{f(v_1),g(v_1),\ldots\}$等于$\{f(v),g(v),\ldots\}$.即$f(v)=f(v_1),g(v)=g(v_1)$,由于线性函数是$f(v-v1)=f(v)-f(v_1)=0$,所以$v=v1$,所以$\phi_{V}$是一个单射，似乎主要需要证明$\phi_{V}$也是一个线性函数,证明它以后，自然是单射了，好吧\verb|\(^o^)/~|， 我们从线性函数两个axioms出发
+	\begin{align*}
+		\{f(v_1+v_2),g(v_1+v_2),\ldots\}& =\{f(v_1)+f(v_2),g(v_1)+g(v_2),\ldots\} \\ 
+		&=\{f(v_1),g(v_1),\ldots\}+\{f(v_2),g(v_2),\ldots\}\\
+		\{f(kv),g(kv),\ldots\} &= \{kf{v},kg(v),\ldots\}	
+	\end{align*}
+
+现在再来说明$\phi_{V}$是一个满射，由于$V$和$V^{**}$都是n维向量空间over $\mathbb{R}$，所以它是一个满射。我们构造这个同构无关于$V$的基选择，这个同构表现形式相对于$V$和$V^{*}$同构的构造更加的natural,适用于任何有限向量空间的一般构造形式。
+
+
+让故事继续，由于$V$和$V^{**}$同构构造适用于所有有限向量空间，我们再引入一个有限向量空间$W$,对应也能得到一个同构$\func{\phi_{V}}{W}{W^{**}}$,同时$V$和$W$之间有一个homomorphism $f$
+
+%p195
+
+``The dual is intuitively the space of "rulers" (or measurement-instruments) of our vector space. Its elements measure vectors. This is what makes the dual space and its relatives so important in Differential Geometry, for instance. This immediately motivates the study of the dual space. For motivations in other areas, the other answers are quite well-versed.
+
+This also happens to explain intuitively some facts. For instance, the fact that there is no canonical isomorphism between a vector space and its dual can then be seen as a consequence of the fact that rulers need scaling, and there is no canonical way to provide one scaling for space. However, if we were to measure the measure-instruments, how could we proceed? Is there a canonical way to do so? Well, if we want to measure our measures, why not measure them by how they act on what they are supposed to measure? We need no bases for that. This justifies intuitively why there is a natural embedding of the space on its bidual. (Note, however, that this fails to justify why it is an isomorphism in the finite-dimensional case)''
+
+%https://ekamperi.github.io/mathematics/2019/11/17/dual-spaces-and-dual-vectors.html
+
+
+\end{document}
