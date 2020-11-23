@@ -8,6 +8,9 @@
 %加载插图宏包 graphicx 以在 pdf 中插入图片
 \usepackage{graphicx}
 
+\usepackage{tikz}
+\usetikzlibrary{cd}
+
 \usepackage{blindtext}
 \usepackage{bm}
 \parindent=0pt
@@ -22,7 +25,7 @@
 \author{枫聆}
 \maketitle
 
-我也好奇自然同构中的自然在这里是什么含义？在这个名字的背后有一个故事，是Eilenbery和Mac Lane's 共同讲述的一个的故事。为什么弄清楚这个故事的含义，前后前后利用一周空闲的时间，大致了解了他们在讲述的一个什么故事，关于向量空间的定义我之前已经忘的差不多了，只好重头开始学一遍。那么到底自然是什么东西呢？
+我也好奇自然同构中的自然在这里是什么含义？在这个名字的背后有一个故事，是Eilenbery和Mac Lane's 共同讲述的一个的故事。为了弄清楚这个故事的含义，前后前后利用一周空闲的时间，大致了解了他们在讲述的一个什么故事，关于向量空间的定义我之前已经忘的差不多了，只好重头开始学一遍。那么到底自然是什么东西呢？
 
 自然同构是刻画两个functors之间的关系，更一般地情况，自然同构是自然变换的特殊情况，从自然变换的定义中，我们知道自然变换是由一个一个的component组成的，而每个component其实是target category里面的morphism，这样看起来我们并没有引入其他的对象来描述两个functors的关系，这也是natural transformation的定义$\textsf{Obj}\mathcal{C} \rightarrow \textsf{Mor}\mathcal{D}$,它描述是这样的一种内在的关系。
 
@@ -59,8 +62,7 @@ $B^{*}=\{v_1^{*},v_2^{*},\ldots,v_n^{*}\}$则是$V^{*}$的一组基，根据$R-m
 现在再来说明$\phi_{V}$是一个满射，由于$V$和$V^{**}$都是n维向量空间over $\mathbb{R}$，所以它是一个满射。我们构造这个同构无关于$V$的基选择，这个同构表现形式相对于$V$和$V^{*}$同构的构造更加的natural,适用于任何有限向量空间的一般构造形式。
 
 
-让故事继续，由于$V$和$V^{**}$同构构造适用于所有有限向量空间，我们再引入一个有限向量空间$W$,对应也能得到一个同构$\func{\phi_{V}}{W}{W^{**}}$,同时$V$和$W$之间有一个homomorphism $f$
-
+让故事继续，由于$V$和$V^{**}$同构构造适用于所有有限向量空间，我们再引入一个有限向量空间$W$,对应也能得到一个同构$\func{\phi_{V}}{W}{W^{**}}$,同时$V$和$W$之间存在一个homomorphism $f$，那么$V$和$V^{*}$之间也应该有一个homomorphism，但是如何表示呢？由此我开始漫长的思考，为什么要引入对偶空间呢？各种查资料中，我隐约感受到了其中的一丝直觉，为了求解线性方程组，从而很自然引入的概念，试想在求解方程组的时候，我们常用的手段，用某一行去加上（减去）去另一行，还可能用某一行的整数倍加上（减去）另一行，而每一行等式可以用一个linear map来表示，这不正是符合vector space 里面的axioms吗？所以linear maps的全体是一个向量空间，但为什么是对偶呢？因为对偶的概念其实是指原来的vector space和其对应的dual vector space是没有区别的，因为在同构的意义下！下面是一段奇妙的理解，似乎能懂一些东西，但是其实上面也没懂\verb|o(╯□╰)o|
 %p195
 
 ``The dual is intuitively the space of "rulers" (or measurement-instruments) of our vector space. Its elements measure vectors. This is what makes the dual space and its relatives so important in Differential Geometry, for instance. This immediately motivates the study of the dual space. For motivations in other areas, the other answers are quite well-versed.
@@ -69,5 +71,16 @@ This also happens to explain intuitively some facts. For instance, the fact that
 
 %https://ekamperi.github.io/mathematics/2019/11/17/dual-spaces-and-dual-vectors.html
 
+
+回到故事的主线，$V*$和$W*$之间的关系如何描述？
+
+\begin{center}
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRADUQBfU9TXfIRQAmclVqMWbAOrdeIDNjwEio4ePrNWiEAB1dAWzo4AFgCMzwAEpdu4mFADm8IqABmAJwgGkZEDggkAEZqTSkdNzl3Lx9EEP9AxFEJLTZ9NBMsAH1ZHmjvX2oApGSGOjMYBgAFfmUhEA8sRxMcEFDJbT1dDOzgaS5IrgouIA
+\begin{tikzcd}
+V \arrow[rr, "f"] \arrow[rrdd, "\phi_{W}f"'] &  & W \arrow[dd, "\phi_W"] \\
+                                             &  &                        \\
+                                             &  & \mathbb{R}            
+\end{tikzcd}
+\end{center}
 
 \end{document}
