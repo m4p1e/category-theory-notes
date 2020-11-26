@@ -34,8 +34,8 @@
 \begin{itemize}
 	\item 向量空间是R-module的特殊情况，即$R=k$,$k$是一个field，这个时候称为\textsl{k-vector space}.
 	\item 还需要了解一下基和维数的概念，一组基可以span向量空间里面的所有向量，如果存在这样一组基，且基的个数是有限的，则称其为向量空间的维数。
-	\item 向量空间$V$的对偶空间$V^{*}$，是由所有的线性函数$\func{f}{V}{\mathbb{R}}$构成的。
-	\item 向量空间$V$的双对偶空间$V^{**}$,是由所有的线性函数$\func{g}{V^{*}}{\mathbb{R}}$构成的。
+	\item 向量空间$V$的对偶空间$V^{*}=\textsf{Hom}(V,k)$，是由所有的线性映射$\func{f}{V}{k}$构成的。
+	\item 向量空间$V$的双对偶空间$V^{**}=\textsf{Hom}(V^{*},k)$,是由所有的线性函数$\func{g}{V^{*}}{k}$构成的。
 	
 \end{itemize}
 
@@ -52,7 +52,7 @@ $B^{*}=\{v_1^{*},v_2^{*},\ldots,v_n^{*}\}$则是$V^{*}$的一组基，根据$R-m
 
 为了理解这样做的情况下$V$和$V^{*}$是同构的，假设任意一个线性函数$f(v)$,$v \in V$,可以把$v$用$B$来表示，即$v=\sum\limits_{i=1}^{n}{k_iv_i}$，然后我们再把$f(v)$稍微调整一下\[f(v)=f\left(\sum\limits_{i=1}^{n}{k_iv_i}\right)=\sum\limits_{i=1}^{n}{v_i^{*}(v)f(v_i)}\]这里用到了$f(kv)=kf(v)$,可以看到$f(v)$是可以被$B^*$ span的，为了说明$\phi$是well-defined,设$g(v)=f(v)$,即$f(v_i)=g(v_i)$,这说明确定一个$f(v)$只需要确定$f$对$B$的作用,$\phi(\sum\limits_{i=1}^{n}{k_iv_i})=\sum\limits_{i=1}^{n}{k_iv_i^{*}}=f(v)$,但是怎么和上面的$f(v)$的形式不同呢？在上面中$k_i$被替换掉了，在这里又莫名其妙的出现了？其实本质上相同的，$f(v_i)$和$k_i$都是属于$\mathbb{R}$.这个同构的前提是固定了$V$中的一组基，由之确定了$V^{*}$中的一组基，任意的一组基都可以构造出来这样一种同构，没有哪一种基相对于其他基是更natural的，所有没有一种同构$\func{\phi}{V}{V*}$是更preferred.
 
-现在我们再来考虑$V$的双对偶空间$V^{**}$,我们现在也是否需要先选择$V$的一组基$B$，再确定$V^{*}$的一组基$B^{*}$，最后再确定$V^{**}$的一组基$B^{**}$呢?实际上没有必要的，可以直接定义$\func{\psi_{V}}{V}{V^{**}}$,对$v \in V$,有$\psi_{V}(v)(f)=f(v)$，表示$\func{\psi_{V}(v)}{V^*}{\mathbb{R}}$把$f \in V^{*}$映到$f(v)$上.我们来尝试理解$\psi_{V}(v)$,它可以表示为$\{f(v),g(v),\ldots\}$ indexed set,如果$\{f(v_1),g(v_1),\ldots\}$等于$\{f(v),g(v),\ldots\}$.即$f(v)=f(v_1),g(v)=g(v_1)$,由于线性函数是$f(v-v1)=f(v)-f(v_1)=0$,所以$v=v1$,所以$\psi_{V}$是一个单射，似乎主要需要证明$\psi_{V}$也是一个线性函数,证明它以后，自然是单射了，好吧\verb|\(^o^)/~|， 我们从线性函数两个axioms出发
+现在我们再来考虑$V$的双对偶空间$V^{**}$,我们现在也是否需要先选择$V$的一组基$B$，再确定$V^{*}$的一组基$B^{*}$，最后再确定$V^{**}$的一组基$B^{**}$呢?实际上没有必要的，可以直接定义$\func{\psi_{V}}{V}{V^{**}}$,对$v \in V$,有$\psi_{V}(v)(f)=f(v)$，表示$\func{\psi_{V}(v)}{V^*}{\mathbb{R}}$把$f \in V^{*}$映到$f(v)$上.我们来尝试理解$\psi_{V}(v)$,它是一个“evaluation function”\[f \mapsto f(v) \colon V^{*} \rightarrow k\]它可以表示为$\{f(v),g(v),\ldots\}$ indexed set,如果$\{f(v_1),g(v_1),\ldots\}$等于$\{f(v),g(v),\ldots\}$.即$f(v)=f(v_1),g(v)=g(v_1)$,由于线性函数是$f(v-v1)=f(v)-f(v_1)=0$,所以$v=v1$,所以$\psi_{V}$是一个单射，似乎主要需要证明$\psi_{V}$也是一个线性函数,证明它以后，自然是单射了，好吧\verb|\(^o^)/~|， 我们从线性函数两个axioms出发
 	\begin{align*}
 		\{f(v_1+v_2),g(v_1+v_2),\ldots\}& =\{f(v_1)+f(v_2),g(v_1)+g(v_2),\ldots\} \\ 
 		&=\{f(v_1),g(v_1),\ldots\}+\{f(v_2),g(v_2),\ldots\}\\
@@ -100,13 +100,29 @@ V^*                          &  & W^* \arrow[ll, "f^{T}"]
 \begin{center}
 % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRADUQBfU9TXfIRQAmclVqMWbAOrdeIDNjwEiZYePrNWiDgD1gAKgNc5fJYKKj11TVJ3T9Rk13EwoAc3hFQAMwBOEAC2SGQgOBBIAIw2ktogPqbxAcGI0WERiADMMVpsADp5aAAWWAD6sjy+ySHU4UiiErk6BcVlwOwm1Ax0AEYwDAAK-MpCIH5Y7kU4if5B9bUZ2Y12IMAFDDA+OAAUPvoAKlwF45M4AJRcB84UXEA
 \begin{tikzcd}
-V \arrow[rr, "f"] \arrow[dd, "\phi_V"']     &  & W \arrow[dd, "\phi_W"] \\
+V \arrow[rr, "f"] \arrow[dd, "\psi_V"']     &  & W \arrow[dd, "\psi_W"] \\
                                               &  &                        \\
 V^{**} \arrow[rr, "{\left(f^{T}\right)}^{T}"] &  & W^{**}                
 \end{tikzcd}
 \end{center}
-看起来似乎要比上面那个图要协调一点，还是来看看是不是交换的\[{\left(f^{T}\right)}^{T}\phi_{V}=\phi_Wf\]在把${\left(f^{T}\right)}^{T}$整理出来\[{\left(f^{T}\right)}^{T}=\phi_Wf\phi_V^{-1}\]fixed了$f$,我们可以得到唯一的${\left(f^{T}\right)}^{T}$,所以上面的图是交换的。
+看起来似乎要比上面那个图要协调一点，还是来看看是不是交换的\[{\left(f^{T}\right)}^{T}\psi_{V}=\psi_Wf\]在把${\left(f^{T}\right)}^{T}$整理出来\[{\left(f^{T}\right)}^{T}=\phi_Wf\psi_V^{-1}\]fixed了$f$,我们可以得到唯一的${\left(f^{T}\right)}^{T}$,所以上面的图是交换的。
 
 故事到这里，其实为什么叫自然，应该能有那么一点感觉了，用范畴论的思想来说其实就是指\textbf{空间向量}和它的\textbf{双对偶空间}所对应的上面这个交换图是天然交换的，只需要我们给定两个任意的空间向量和他们之间的homomorphism，注意这里homomorphism是指任意的$f \in \textsf{Hom}(V,W)$，在这里也就是具体的linear map。相对地，\textbf{空间向量}和它的\textbf{对偶空间}，我们并不能总是保证上面的图交换。
+
+但是故事到这里并没有结束，因为我们还并没有把它归纳到自然同构的形式上，自然同构的定义需要两个pair-functor，如果把全体有限维的向量空间看做一个范畴$\textsf{Vect}$,那么上面图中的箭头$\func{f}{V}{W}$就是$\textsf{Vect}$中一个morphism,为了尽可能的维持上面的交换图，我们知道自然同构的交换图里面的箭头都属于source范畴
+
+算了不啰嗦了直接把两个functor给出来吧，一个trivial functor $\func{1}{\textsf{Vect}}{\textsf{Vect}}$和一个双对偶functor $\func{DD}{Vect}{Vect}$把$V$映到$V^{**}$和把$f$映射到$DD(f)$那么现在我们可以给出两个一个自然同构的形式了
+
+\begin{center}
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAEYAKANQEoQAvqXSZc+QigBM5KrUYs2XAOr8hI7HgJEyk2fWatEIACLGeq4SAwbxRabur6FR05xWDZMKAHN4RUABmAE4QALZIZCA4EEjSIAx0AEYwDAAKopoSIEFY3gAWOCCO8oYgADplaNgA+tyClsFhSOzU0UgAzMUGbBVVWNVK9YEh4YiRbYgtct1G7EMgjaNxE53xSSnpNlpGOfmFXc4mxh4CQA
+\begin{tikzcd}
+1(V) \arrow[dd, "\psi_V"'] \arrow[rr, "1"] &  & 1(W) \arrow[dd, "\psi_W"] \\
+                                           &  &                           \\
+DD(V) \arrow[rr, "DD"']                    &  & DD(W)                    
+\end{tikzcd}
+\end{center}
+
+前面说了这么多，其实就是想说明通过$\psi_{V}$引入自然同构$\psi\colon 1 \Rightarrow DD$,而$\psi_{V}$就是其中的一个component。自然同构描述的是两个函子之间同构的关系，我们用向量空间和它的双对偶空间直觉上“自然”地同构引入作为component，就有了trival functor和double dual functor的同构，那么我们如果用不那么“自然地“向量空间和它的对偶空间同构作为component，是否也能试用于描述两个函子之间的关系？
+
 
 \end{document}
