@@ -122,7 +122,20 @@ DD(V) \arrow[rr, "DD"']                    &  & DD(W)
 \end{tikzcd}
 \end{center}
 
-前面说了这么多，其实就是想说明通过$\psi_{V}$引入自然同构$\psi\colon 1 \Rightarrow DD$,而$\psi_{V}$就是其中的一个component。自然同构描述的是两个函子之间同构的关系，我们用向量空间和它的双对偶空间直觉上“自然”地同构引入作为component，就有了trival functor和double dual functor的同构，那么我们如果用不那么“自然地“向量空间和它的对偶空间同构作为component，是否也能试用于描述两个函子之间的关系？
+前面说了这么多，其实就是想说明通过$\psi_{V}$引入自然同构$\psi\colon 1 \Rightarrow DD$,而$\psi_{V}$就是其中的一个component。自然同构描述的是两个函子之间同构的关系，我们用向量空间和它的双对偶空间直觉上“自然”地同构作为component引入，就有了trival functor和double dual functor的同构，那么我们如果用不那么“自然地“向量空间和它的对偶空间同构作为component，是否也能试用于描述两个函子之间的关系？我们来尝试一下
 
+\begin{center}
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAEYAKANQEoQAvqXSZc+QigBM5KrUYs2XAOr8hI7HgJFpk2fWatEIACKcVg4SAwbxRMrur6FR030GyYUAObwioAGYAThAAtkhkIDgQSOyO8oYcFgHBYYgRUUgAzHEGbAA6eWgAFlgA+sDcAiDUDHQARjAMAAqimhIggVheRThJIEGhMdQZiNIgtQ3NrbZGDDD+vTnOIAXFZUp9A6ljI9nj9Y0tNlqz84tyuS6c-qoUAkA
+\begin{tikzcd}
+1(V) \arrow[rr, "1"] \arrow[dd, "\phi_{V}"'] &  & 1(W) \arrow[dd, "\phi_W"] \\
+                                             &  &                           \\
+D(V)                                         &  & D(W) \arrow[ll, "D(f)"]  
+\end{tikzcd}
+\end{center}
+
+还是trivial identity functor和dual functor，我们已经说过了，我们并不能保证这张图交换，因为除非$f$是一个同构，原因上面已经说过了。
+
+
+提供vector space里面两个特殊同构，其中vector space和 double-dual space的同构更自然，是因为它可以作为natural isomorphism的component，自然不自然的我觉得，似乎也没什么意义了，即使它不叫自然，也能用别的名字代替，主要是两个同构确实用另一种观点来看确实是有区别！
 
 \end{document}
