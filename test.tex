@@ -615,7 +615,7 @@ B \arrow[rr, "\beta_B"]                  &  & P(B)
 \section{Equivalence of categories}
 
 \begin{definition}
-设$\func{F}{\cat{C}}{\cat{D}}$是一个函子，如果存在函子$\func{G}{\cat{D}}{\cat{c}}$及自然同构$\func{\al}{1_{\cat{C}}}{GF}$和$\func{\be}{1_{\cat{D}}}{FG}$,则称函子$F$是一个等价（equivalence）
+设$\func{F}{\cat{C}}{\cat{D}}$是一个函子，如果存在函子$\func{G}{\cat{D}}{\cat{C}}$及自然同构$\func{\al}{1_{\cat{C}}}{GF}$和$\func{\be}{1_{\cat{D}}}{FG}$,则称函子$F$是一个等价（equivalence）
 
 % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAGMQBfU9TXfIRRkAjFVqMWbdgHJuvEBmx4CREeXH1mrRCADiAMQAU7AJTy+ywWtJjqWqbsMmZ5npYGqUAZg33JOiBQFor8KkLIvnYS2mxQcu6hVl7IACx+MY4gBnpGUG4KSp4R6dEOgTl5buIwUADm8ESgAGYAThAAtkhkIDgQSOogDHQARjAMAAph1rqtWHUAFjgg-rG6zSFtnd3UfUgATKtZADrHjGgLdAD6nIlbXYiDe4i+Q6PjU8lCIHOLy0eBU7nS5XYCyLibdoPQ69fovAFsZzNAotKFIdKwpAAVmowzGk2mXh+8yWK0ygTqkO2iAxzwAbAjdKcxjhrsE7mjEDjMYgAOy494Er5sX6kxkgZkwVmg+IQjnUhk8-lvfGfYpsBgwZr-clsSp1apcIA
 \begin{center}
@@ -631,7 +631,7 @@ c' \arrow[r, "\alpha_{c'}"']            & GF(c')                   &  & d' \arro
 如果范畴$\cat{C}$和范畴$\cat{D}^{op}$等价，则称$\cat{C}$与$\cat{D}$是对偶等价的范畴（dual equivalent categories）。
 \end{definition}
 
-由于函子保持对象的同构，很容易证明范畴的等价构成了范畴之间的一个等价关系。回忆两个范畴同构的概念是指两个范畴具有完全相同的结构，但是实际应用中我们并不需要如此强的条件，等价范畴是利用自然变化给出范畴之间一种较弱的相同性。
+由于函子保持对象的同构，很容易证明范畴的等价构成了范畴之间的一个等价关系。回忆两个范畴同构的概念是指两个范畴具有完全相同的结构，但是实际应用中我们并不需要如此强的条件，等价范畴是利用自然变换给出范畴之间一种较弱的相同性。
 
 \begin{definition}
 定义一个函子$\func{F}{\cat{C}}{\cat{D}}$
@@ -665,14 +665,72 @@ c' \arrow[r, "\alpha_{c'}"']            & GF(c')                   &  & d' \arro
 \end{lemma}
 从这几个交换图上我们已经很容易构造出$f'$了,简单描述一下，定义$\func{\al}{a}{a'}$和$\func{\be}{b}{b'}$,反之它们的逆用$\al^{-1}$和$\be^{-1}$表示。第一个最为直观$f=\be f \al^{-1}$
 
-开始证明定理3.3。($\Longrightarrow$) 给定$\func{F}{\cat{C}}{\cat{D}}$,$\func{G}{\cat{D}}{\cat{C}}$,$\isom{\eta}{1_{\cat{C}}}{GF}$,$\isom{\mu}{1_{\cat{D}}}{FG}$定义了一个范畴间的等价关系。对于任意的$d \in D$,$\isom{\mu_d}{FG(d)}{d}$,$FG$的codomain也是$F$的codomain，$FG$是一个双射，则$F$是稠密的。再考虑两个并行的态射$\pfunc{f,g}{c}{c'}$,如果$F(f)=F(g)$,则$f$和$g$同时满足下面交换图
+开始证明定理3.3。($\Longrightarrow$) 给定$\func{F}{\cat{C}}{\cat{D}}$，$\func{G}{\cat{D}}{\cat{C}}$，$\isom{\eta}{1_{\cat{C}}}{GF}$，$\isom{\mu}{1_{\cat{D}}}{FG}$定义了一个范畴间的等价关系。对于任意的$d \in D$，有$\isom{\mu_d}{FG(d)}{d}$，取$c=G(d)$,显然$F$是稠密的。再考虑两个并行的态射$\pfunc{f,g}{c}{c'}$,如果$F(f)=F(g)$,则$f$和$g$同时满足下面交换图
 \[\xymatrix{
 	c\ar[d]_{f\ or\ g}\ar[r]_{\cong}^{\eta_c} & GF(c)\ar[d]^{GF(f)=GF(g)}\\
 	c'\ar[r]_{\eta_{c'}}^{\cong} & GF(c')
-	}\]	根据lemma3.4，$c \rightarrow c'$是唯一确定的，所有$f=g$,因此$F$是一个单射.对称地，考虑$\func{f}{d}{d}$和同构$\mu_{d}$,$\mu_{d'}$,可以唯一确定$\func{k}{G(d)}{G(d')}$\[\xymatrix{
+	}\]	根据lemma3.4，$c \rightarrow c'$是唯一确定的，所有$f=g$,因此$F$是一个单射.对称地，考虑$\func{f}{d}{d}$和同构$\mu_{d}$，$\mu_{d'}$,可以唯一确定$\func{k}{G(d)}{G(d')} \in \Hom_\cat{C}(X,Y) $\[\xymatrix{
 	d\ar[d]_{f}\ar[r]_{\cong}^{\mu_d} & FG(d)\ar[d]^{Fk}\\
 	d'\ar[r]_{\mu_{d'}}^{\cong} & FG(d')
 	}\],所以F是满射。
 	
-($\Longleftarrow$)		
+($\Longleftarrow$) 这个方向证明，我在怎么用dense这个性质的时候想了很久，最后突然发现一句“由选择公理”就完了，就完了，是的，你没有听错...
+
+任取$d \in \cat{D}$，由dense性质和选择公理,是可以构造一个$\isom{\mu_d}{FG(d)}{d}$,在dense下选一个$c$,让$G(d)=c$.对象映射处理好了，就可以来构造一个交换图了
+		
+\begin{center}		
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRADEBxACigEoQAX1LpMufIRQAmclVqMWbKEJEgM2PASJkpc+s1aIOPKAHIBw0RolEZu6vsVGzQuTCgBzeEVAAzAE4QALZIZCA4EEgy8gZsXL4g1Ax0AEYwDAAKYpqSIP5YHgAWOIkgDFhghiBQdHCF7ip+gSGIYRFIAIwOClUAOr1BTAD6ykmp6VnWWkYMML4lliABwZ3U7YgAzN2xRgljaZnZNjNzC6rLLdHrW2Xjh1O5+UUl204g-YNDwGaCroJAA
+\begin{tikzcd}
+FG(d) \arrow[dd, "FGg"', dashed] \arrow[rr, "\mu_d"] &  & d \arrow[dd, "g"] \\
+                                                     &  &                   \\
+FG(d') \arrow[rr, "\mu_{d'}"']                       &  & d'               
+\end{tikzcd}
+\end{center}
+
+任取范畴$D$中一个态射$\func{g}{d}{d'}$,$\mu_d$和$\mu_d'$都是同构，所以可以上面的lemma可以唯一确定一个$FGg$。因为$F$是faithful，所以换个角度看$G(d) \rightarrow G(d')$也是唯一的，现在$\Func{\mu}{FG}{1_D}$里面所有的component都是可以确定一个交换图的，且都是同构的，但是这里有一个问题，我们用选择公理弄了上面这样一个$G$出来，我们并没有证明它确实是一个函子，还少一步验证它对态射作用，首先是单位态射，我们有下面这个交换图
+\begin{center}
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRADEBxACigEoQAX1LpMufIRQAmclVqMWbKEJEgM2PASJkpc+s1aIOPfitEaJRGbur7FR5YLkwoAc3hFQAMwBOEALZIZCA4EEgAjLYKhiAAOrH+TAD6ytQMdABGMAwACmKakiAMMF44ZiC+AUHUoUgy8gZsXNzhKXwABPE4MAAeOMDtED7tgu3srcAmfIIgaZnZeRZaRj5YrgAWZcLefoGIkSFhiADMUY1GralF87n5lkbFpeWVe-W1J2f2IMnAUADkMzmWVuS0Kqw2WwogiAA
+\begin{tikzcd}
+FG(d) \arrow[rr, "\mu_d"] \arrow[dd, "FG(1_d) \text{ or } F1_{G(d)}"'] &  & d \arrow[dd, "1_d"] \\
+                                                                       &  &                     \\
+FG(d) \arrow[rr, "u_{d'}"']                                            &  & d                  
+\end{tikzcd}
+\end{center}
+
+还是由前面的lemma和$F$上对态射的单射性质，这里有$G(1_d) = 1_{G(d)}$,相似地，再给一个态射$\func{f'}{d'}{d''}$,我们有下面的交换图
+
+\begin{center}
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRADEBxACigHIAlCAC+pdJlz5CKAEzkqtRizZQRYkBmx4CRMjIX1mrRBx79Ba8VqlE5+6oeUnzIhTCgBzeEVAAzAE4QALZIZCA4EEgAjA5KxiAAOglBTAD6qtQMdABGMAwAChLa0iAMML44liABwaHUEUhyikZsXNy+fL4CAARJODAAHjjA3RD+3cLd7Nw8DIJJAMZQEDjdswJCmTl5hdY6Jv5YHgAWlaJ+gSGIMeGRiADMW7kFRTYmZRUgsS0mHb5VNSuTQaD2+ThAaWA5mEX1K2xeexKhxOZwowiAA
+\begin{tikzcd}
+FG(d') \arrow[rr, "\mu_d"] \arrow[dd, "FG(g'g) \text{ or } F(G(g')\cdot G(g)"'] &  & d \arrow[dd, "g'g"] \\
+                                                                                 &  &                     \\
+FG(d'') \arrow[rr, "u_{d''}"']                                                   &  & d''                
+\end{tikzcd}
+\end{center}
+
+这里有$G(g'g)=G(g')\cdot G(g)$.
+
+现在已经完成了前一半的证明，接下来想一下如何构造$\Func{\eta}{GF}{1_c}$.并不能直接来构造，尝试构造下面的交换图
+\begin{center}
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRADEAKAYwEoQAvqXSZc+QigBM5KrUYs27AOJc+g4SAzY8BIgBYZ1es1aIOPfkJHbxRMpNnGFZ1QHJLGrWN1TSDo-KmHCo87urW3hLIBv5yJoqhlrIwUADm8ESgAGYAThAAtkhkIDgQSACMAfEuADo1MDh0APrc4SC5BRXUpUjSIAx0AEYwDAAKojoS-TBZOCBVziB1+UxNwKq8Am0dhYjFPYgAzNQDw2MTtmY5WKkAFnMLQexZ23m7lSVliAb9QyPjNh8IGudwecUWymer06iD6BwArCc-udAVMGDMwU4ni8rO03kgfgikWcAZE2CD7vNwUFlqt1oktridkhjp8CcT-hcgRTMYFFHUGs1gNxXIyKAIgA
+\begin{tikzcd}
+F(c) \arrow[rr, "F\eta_c"] \arrow[dd, "Ff"'] &  & FGF(c) \arrow[rr, "\mu_{F(c)}"] \arrow[dd, "FGFf"'] &  & F(c) \arrow[dd, "Ff"] \\
+                                             &  &                                                     &  &                       \\
+F(c') \arrow[rr, "F\eta_{c'}"']              &  & FGF(c') \arrow[rr, "\mu_{F(c')}"']                  &  & F(c')                
+\end{tikzcd}
+\end{center}
+声明一下其中的几个定义，态射$\func{f}{c}{c'}$,两个component $\func{\eta_c}{c}{GF(c)}$, $\func{\eta'_c}{GF(c)}{c}$,把$F\eta_c$定义为$\mu^{-1}_{F(c)}$,这样做的目的是使得$F\eta_c  \cdot F\eta'_c=F(\eta_c\eta'_c) =\mu_{F(c)}\mu^{-1}_{F(c)}=1_{F(c)}=F(1_c)$，再反过来做一次就得到了同构$u$.
+
+再看这个大长方形和两个小正方形的交换性，大长方形由上述定义交换，右边这个小正方形因为$\mu$是个自然同构，所以也是交换的，言下之意左边这个小正方形也是交换的。这两个小正方形带来的作用是什么？左边这个交换可以得到\[FGFf \cdot F\eta_c = F(GFf \cdot \eta_c) = F(\eta_{c'} \cdot f) = F\eta_{c'} \cdot Ff\]再由$F$的faithful性质，即有$GFf \cdot \eta_C = \eta_{c'} \cdot f$,这个等式就表示下面的图交换
+
+\begin{center}
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAGMQBfU9TXfIRRkATFVqMWbdgHJuvEBmx4CREeXH1mrRCADiAMQAU7AJTy+ywWtJjqWqbsMmZ5ruJhQA5vCKgAZgBOEAC2SGQgOBBI6hLabAA6CTA4dAD6nDwBwWGIsVFIAMz2kjr6Bv4WIEGhSACM1AWIxSAMdABGMAwACvwqQiCBWF4AFjggJfG6SSnpslU1uRFNDa0dXb1WqrpDo+OTjtXcFFxAA
+\begin{tikzcd}
+c \arrow[rr, "\eta_c"] \arrow[dd, "f"'] &  & GF(c) \arrow[dd, "GFf"] \\
+                                        &  &                         \\
+c' \arrow[rr, "\eta_c'"']               &  & GF(c')                 
+\end{tikzcd}	
+\end{center}
+
+将近拖了半个月的证明，终于证完了，选择公理的应用和间接构造自然同构，还是得在细细想想...
 \end{document}
