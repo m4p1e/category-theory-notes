@@ -1,4 +1,4 @@
-\documentclass[UTF8,11pt,a4paper]{ctexart}
+\documentclass{article}
 \usepackage{ctex}
 %\usepackage{math490}
 \usepackage{tikz}
@@ -11,6 +11,19 @@
 \usepackage[all,cmtip]{xy} %画交换图的package
 \usepackage{xspace}
 
+\usepackage{hyperref} %url
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\color{blue}\Large\bfseries\filcenter}{}{1em}{}
+\titleformat{\subsection}[hang]{\color{red}\Large\bfseries}{}{0em}{}
 \usepackage[textwidth=18cm]{geometry} %页宽
 
 %theorem,corollary,lemma
@@ -198,7 +211,7 @@
 \newcommand*{\epic}[3]{\xfunc{\twoheadrightarrow}{#1}{#2}{#3}}
 \newcommand*{\incl}[3]{\xfunc{\hookrightarrow}{#1}{#2}{#3}}
 \newcommand*{\pfunc}[3]{\xfunc{\rightrightarrows}{#1}{#2}{#3}}
-\newcommand*{\idfunc}[1]{\func{\id_{#1}{#1}{#1}}}
+\newcommand*{\idfunc}[1]{\func{\id_{#1}}{#1}{#1}}
 \newcommand*{\oper}[2]{\func{#1}{{#2}\by{#2}}{#2}}
 \newcommand*{\nper}[3]{\func{#1}{{#2}^{#3}}{#2}}
 \newcommand*{\maps}[3]{\xfunc{\mapsto}{#1}{#2}{#3}}
@@ -245,6 +258,8 @@
 \DeclareMathOperator{\Conj}{Conj}
 \DeclareMathOperator{\Sect}{Sect}
 
+\newcommand{\redt}[1]{\textcolor{red}{#1}}
+\newcommand{\bluet}[1]{\textcolor{blue}{#1}}
 
 \title{Category Theory}
 \author{maple,菜鸡}
@@ -254,12 +269,46 @@
 \maketitle
 \tableofcontents
 
-\section{Functoriality}
+
+\newpage
+\section{Categories, Functors, Natural Transformations}
+
+\subsection{Categories}
+
+%https://math.stackexchange.com/questions/172966/what-are-the-differences-between-class-set-family-and-collection
+\begin{definition}
+\rm 一个范畴(category)由
+\begin{itemize}
+	\item a collection of objects (\bluet{如果把collection翻译成集族，我觉得在这里不对，感觉collection就是表示一堆元素，为了避免可能出现paradox of "the set that includes all set"，因此在这里淡化用集合表示的概念})
+	\item a collection of morphisms
+\end{itemize}
+组成. 它们满足一些基本公理
+\begin{itemize}
+	\item 每一个morphism都有一个domain object和codomain object, 一般表示为$\func{f}{X}{Y}$
+	\item 每个object有一个identity morphism $\idfunc{X}$. 
+	\item 给定两个morphism $\func{f}{X}{Y}, \func{g}{Y}{Z}$，那么morphism $\func{g \circ f }{X}{Z}$也是存在的，这个特殊的morphism $g \circ f $我们称之为composite morphism. \bluet{也就是说morphism在复合作用下也是存在的，因此可以推广至任意可复合的morphism上}.
+	\item 任意的morphism $\func{f}{X}{Y}$，满足
+	$$
+		f\circ\id_X = f, \id_Y \circ f = f. 
+	$$
+	\item morphism之间的复合满足结合律，给定morphism $\func{f}{X}{Y}, \func{g}{Y}{Z}, \func{h}{Z}{W}$，那么
+	$$
+		h \circ (g \circ f) = (h \circ g) \circ f,
+	$$
+\end{itemize}
+\end{definition}
+
+
+
+
+\subsection{Duality}
+
+\subsection{Functoriality}
 
 \begin{flushleft}
 \textbf{函子}(functor)\\
 \begin{definition}
-一个函子$F \colon \mathcal{C} \rightarrow \mathcal{D}$由两个映射组成
+\rm 一个函子$F \colon \mathcal{C} \rightarrow \mathcal{D}$由两个映射组成
 \begin{itemize}
  \item 每一个对象$c \in \mathcal{C}$,对应一个对象$F_c \in \mathcal{D}$。
  \item 每一个态射$f \colon c \rightarrow	c' \in \mathcal{C}$,对应一个态射$Ff \colon Fc \rightarrow Fc' \in \mathcal{D}$，所有$Ff$的domain和codomian分别对应$f$的domain和codomain。 
@@ -283,7 +332,7 @@
 \pagebreak
 
 \begin{example}
-几种特殊的函子
+\rm 几种特殊的函子
 	\begin{itemize}
 		\item 对任意范畴$\cat{C}$,存在一个\tbf{单位函子}（identity functor）$\func{id_{\cat{C}}}{\cat{C}}{\cat{C}}$定义为\[id_{\cat{C}}(\xymatrix{c\ar[r]^f&c'})=\xymatrix{c\ar[r]^f&c'}\]
 		\item 对于任意的范畴$\cat{C}$和$\cat{D}$,和$\cat{D}$中某个固定的对象$d$，存在一个\tbf{常量函子}（constant functor）$\func{C_{d}}{\cat{C}}{\cat{D}}$定义为\[C_{d}(\xymatrix{c\ar[r]^f&c'})=\xymatrix{d\ar[r]^{id_d}&d}\]
@@ -295,7 +344,7 @@
 
 
 \begin{example}
-如果把群（Group）看做一个对象的范畴，那么群范畴和群范畴的函子是什么？
+\rm 如果把群（Group）看做一个对象的范畴，那么群范畴和群范畴的函子是什么？
 \end{example}
 首先回忆一下，群范畴只有单个对象$x$,群里面的元素对应群范畴里面的态射，其domain和codomain都是对象$x$，群里面的单位元对应群范畴里面的$1_x$单位态射，群元素之间的乘法运算对应态射之前的映射。
 
@@ -550,7 +599,7 @@ $\func{\Conj}{Group}{Set}$是一个函子，$\Conj$作用在单个群上表示�
 	\item 让$f$和$g$表示两个可复合的态射$fg$,$[x] \in dom(f)$ \[\Conj g\Conj f([x])=\Conj g([f(x)])=[g(f(x))]=[gf(x)]=\Conj (gf([x])).\]
 \end{itemize}
 
-\section{Naturality}
+\subsection{Naturality}
 \begin{definition}
 
 \textbf{自然变换}（natural transformation）
@@ -613,7 +662,7 @@ B \arrow[rr, "\beta_B"]                  &  & P(B)
 \end{example}
 我在想这和函子$P$的定义有什么区别?注意这里$\beta_A$是集合元素之间的映射对任意的$x \in A$有$x \mapsto \{x\} \in P(A)$，而不是函子定义的对象映射,这里存在的自然变换是$\alpha \colon 1_{Set} \rightarrow P$,其中$1_{Set}$是范畴$Set$的单位函子。
 
-\section{Equivalence of categories}
+\subsection{Equivalence of categories}
 
 \begin{definition}
 设$\func{F}{\cat{C}}{\cat{D}}$是一个函子，如果存在函子$\func{G}{\cat{D}}{\cat{C}}$及自然同构$\func{\al}{1_{\cat{C}}}{GF}$和$\func{\be}{1_{\cat{D}}}{FG}$,则称函子$F$是一个等价（equivalence）
