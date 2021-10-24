@@ -41,6 +41,7 @@
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{exercise}{Exercise}[section]
+\newtheorem{annotation}[theorem]{Annotation}
 
 
 \newcommand{\defeq}{\coloneqq}
@@ -277,9 +278,9 @@
 
 %https://math.stackexchange.com/questions/172966/what-are-the-differences-between-class-set-family-and-collection
 \begin{definition}
-\rm 一个范畴(category)由
+\rm 一个范畴(category) $\cat{C}$ 由
 \begin{itemize}
-	\item a collection of objects (\bluet{如果把collection翻译成集族，我觉得在这里不对，感觉collection就是表示一堆元素，为了避免可能出现paradox of "the set that includes all set"，因此在这里淡化用集合表示的概念})
+	\item a collection of objects (\bluet{如果把collection翻译成集族，我觉得在这里不对，感觉collection就是表示一堆元素(vague word)，为了避免可能出现paradox of "the set that includes all set"，因此在这里淡化用集合表示的概念})
 	\item a collection of morphisms
 \end{itemize}
 组成. 它们满足一些基本公理
@@ -287,11 +288,11 @@
 	\item 每一个morphism都有一个domain object和codomain object, 一般表示为$\func{f}{X}{Y}$
 	\item 每个object有一个identity morphism $\idfunc{X}$. 
 	\item 给定两个morphism $\func{f}{X}{Y}, \func{g}{Y}{Z}$，那么morphism $\func{g \circ f }{X}{Z}$也是存在的，这个特殊的morphism $g \circ f $我们称之为composite morphism. \bluet{也就是说morphism在复合作用下也是存在的，因此可以推广至任意可复合的morphism上}.
-	\item 任意的morphism $\func{f}{X}{Y}$，满足
+	\item 对任意的morphism $\func{f}{X}{Y}$，满足
 	$$
 		f\circ\id_X = f, \id_Y \circ f = f. 
 	$$
-	\item morphism之间的复合满足结合律，给定morphism $\func{f}{X}{Y}, \func{g}{Y}{Z}, \func{h}{Z}{W}$，那么
+	\item morphisms之间的复合满足结合律，给定morphisms $\func{f}{X}{Y}, \func{g}{Y}{Z}, \func{h}{Z}{W}$，那么
 	$$
 		h \circ (g \circ f) = (h \circ g) \circ f,
 	$$
@@ -299,15 +300,128 @@
 \end{definition}
 
 
+\begin{annotation}
+\rm \redt{关于集合论对范畴论的影响} For that reason, common practice among category theorists is to work in an extension of the usual Zermelo–Fraenkel axioms of set theory, with new axioms allowing one to distinguish between “small” and “large” sets, or between sets and classes. The search for the most useful set-theoretical foundations for category theory is a fascinating topic that unfortunately would require too long of a digression to explore.
+\end{annotation}
+
+
 \begin{definition}
 \rm \redt{一个不太准确但是形象的concrete category的定义} 如果一个范畴的object都有一个underlying set(去瞅瞅universal algebra)，每一个morphism都是两个underlying set之间映射定义的function，特别地这些function都有structure-preserving的性质，那么我们则称这个范畴是一个concrete category. 
 \end{definition}
 
 
+\begin{definition}
+\rm A category is \redt{small} if it has a small set(not proper set) of objects and a small set of morphisms.
+\end{definition}
 
 
+\begin{definition}
+\rm A category is \redt{locally small} if between any pair of objects there is only a small set of morphisms. 
+\end{definition}
+
+\begin{definition}
+\rm An \redt{isomorphism} in a category is a morphism $\func{f}{X}{Y}$for which there exists a morphism $\func{g}{Y}{X}$ so that $gf= \id_X$ and $fg = \id_Y$ . The objects $X$ and $Y$ are \redt{isomorphic} whenever there exists an isomorphism between $X$ and $Y$, in which case one writes $X \cong Y$. 
+\end{definition}
+
+\begin{definition}
+\rm An \redt{endomorphism} is a morphism whose domain equals its codomain, that is an isomorphism is called an \redt{automorphism}. 
+\end{definition}
+
+\begin{definition}
+\rm A \redt{groupid} is a category in which every morphism  is an isomorphism. 
+\end{definition}
+
+\begin{example}
+\rm A group is a groupoid with one object. 
+
+如果给定一个group $G$，与之对应的范畴我们记为$\cat{C}_G$，$\cat{C}_G$里面只有一个object，我们记为$\bullet$，$G$上每一个元素$a$对应isomorphism $\func{f}{\bullet}{\bullet}$，此时你再考虑$G$上的二元运算对应$\cat{C}_G$里面的morphism复合. 
+
+反过来给定只含一个元素$\bullet$的groupoid $\cat{C}$，那么$\cat{C}$对应的group为$\cat{C}_G = \mor(\bullet,\bullet)$. 
+\end{example}
+
+\begin{definition}
+\rm A \bluet{subcategory} D of a category C is defined by restricting to a subcollection of objects and subcollection of morphisms subject to the requirements that the subcategory D contains
+the domain and codomain of any morphism in D , the identity morphism of any object in D, and the composite of any composable pair of morphisms in D.
+\end{definition}
+
+\begin{annotation}
+\rm 子范畴换句话就是你拿了一个subcollection $D$，那么你要把所有pairs of objects in $D$之间的morphisms也拿出来，identity morphisms当然也不能少. 
+\end{annotation}
+
+\begin{lemma}
+\rm Any category $\cat{C}$ contains a \redt{maximal groupoid} the subcategory containing all of the objects and only those morphisms that are isomorphisms. 
+\end{lemma}
 
 \subsection{Duality}
+
+\begin{definition}
+\rm 给定一个范畴$\cat{C}$. 对应的\redt{opposite category} $\cat{C}^\op$定义为
+\begin{enumerate}
+	\item 和$\cat{C}$具有相同的objects.
+	\item 对任意一个morphism $f \in C$当且仅当$f^\op \in C^\op$，其中$f^\op$表示交换$f$两端的domain和codomain而得到的morphism. 
+	\item 对任意object $X$，用$\id_X^\op$表示它在$\cat{C}^\op$中的identity.
+	\item 对任意一对morphisms $f^\op, g^\op \in \cat{C}^\op$可复合当且仅当$g,f \in \cat{C}$可复合.    
+\end{enumerate}
+\end{definition}
+
+\begin{annotation}
+\rm 初始对偶范畴很有可能理解不了，因为它通常被描述将箭头反向，但是箭头是什么你根本不知道. 这里我们的目光不要总是局限在箭头上，而是箭头反向之后morphism依然保持的的对应关系，对偶范畴描述只是一种对应形式，更重要是理解两个范畴上蕴含的信息是等价的. 
+\end{annotation}
+
+\begin{theorem}
+\rm \redt{duality} the statement $\sigma$ is true for $\cat{C}$ if and only if $\sigma^op$ is true for $\cat{C}^\op$. 
+\end{theorem}
+
+\begin{lemma}
+\rm \redt{charaterization of isomorphism} 下述条件等价:
+\begin{enumerate}
+	\item $\func{f}{x}{y} \in \cat{C}$是一个isomorphism.
+	\item 对于任意的$c \in C$，post-composition with $f$都会诱导出一个双射
+	$$
+	\func{f_*}{\mor(c,x)}{\mor(c,y)},
+	$$
+	即若给定$\func{h}{c}{x}$，$f_*(h) = f \circ h$.
+	\item 对于任意的$c \in C$，pre-composition with $f$都会诱导处一个双射
+	$$
+	\func{f^*}{\mor(x,c)}{\mor(y,c)},
+	$$
+	即若给定$\func{h}{x}{c}$，$f^*(h) = h \circ f$.  
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\rm  (1) => (2). 假设$f$是一个isomorphism，设$f$的逆为$g$. 利用$g$同样可以构造一个函数
+$$
+\func{g_*}{\mor(c,y)}{\mor(c,x)}.
+$$
+设$\func{h}{c}{x},\func{k}{c}{y}$，于是
+$$
+\begin{aligned}
+f_*  \circ g_*(k) = f \circ g \circ k = \id_y \circ k  = k\\
+g_*  \circ f_*(h) = g \circ f \circ h = \id_x \circ k  = h\\
+\end{aligned}
+$$
+其中仅利用了associativity和identity. 若$f_*(a) = f_*(b)$，那么通过第二个等式可以得到$a = b$，因此$f_*$是单射的; 对任意$k \in \mor(c,y)$，那么通过第一个等式，可以找到它在$f$下的一个preimage $g_*(k)$，因此$f_*$是满射. 综上$f_*$是双射. 
+
+\rm (2) => (1). 假设$f_*$是一个双射. 当$c = y$时，此时$\func{f_*}{\mor(y,x)}{\mor(y,y)}$，那么$\id_y$肯定存在一个preimage，设这个preimage为$g$，于是$f \circ g = \id_y$. 当$c = x$时，此时$\func{f_*}{\mor(x,x)}{\mor(x,y)}$，我们考虑$\id_x$和$g \circ f$的image
+$$
+\begin{aligned}
+f_*(\id_x) &= f \circ \id_x = f  \\
+f_*(g \circ f) &= f \circ g \circ f = (f \circ g) \circ f = f 
+\end{aligned}
+$$
+因此$f$是单射的情况下，$\id_x = g \circ f$. 综上$f$是一个isomorphism. 
+
+(2) => (3). 假设$f_*$是一个双射. 这里我们将会利用duality的性质来证明. 我们已经证明了(1) <=> (2)，它们是任意范畴而言的，现在我们把它放到$\cat{C}^\op$上，我们将会得到这样一个已经被证明的命题: $\func{f^\op}{y}{x}$是一个isomorphism当且仅当
+\begin{center}
+$\func{f_*^\op}{\mor^\op(c,y)}{\mor^\op(c,x)}$是一个双射. 
+\end{center}
+在这里我们用一下duality的性质，上面命题等价于: $\func{f}{x}{y}$是一个isomorphism当且仅当
+\begin{center}
+$\func{f^*}{\mor(y,c)}{\mor(x,c)}$是一个双射.
+\end{center}
+这里我们就直接完成了对(3)的证明. 
+\end{proof}
 
 \subsection{Functoriality}
 
