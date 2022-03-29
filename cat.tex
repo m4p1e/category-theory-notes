@@ -328,6 +328,15 @@
 \end{definition}
 
 \begin{definition}
+\rm A monoid is a category with a single object. Given monoid $M$, we write $\cat{C}_{M}$ for the corresponding category with single object $\bullet$ and with $M$ as its hom-set. 
+\end{definition}
+
+\begin{annotation}
+\rm 这个$\cat{C}_M$里面就$\bullet$一个object, 它的identity function就是$M$里面的identity $e$, 而$\Hom_{\cat{C}_M}(\bullet,\bullet) = M$, 即每一个morphism都是$M$中的一个element， $M$里面定义的binary operator就天然满足了我们需要的composition. 
+\end{annotation}
+
+
+\begin{definition}
 \rm A \redt{groupid} is a category in which every morphism  is an isomorphism. 
 \end{definition}
 
@@ -338,6 +347,8 @@
 
 反过来给定只含一个元素$\bullet$的groupoid $\cat{C}$，那么$\cat{C}$对应的group为$\cat{C}_G = \mor(\bullet,\bullet)$. 
 \end{example}
+
+
 
 \begin{definition}
 \rm A \bluet{subcategory} D of a category C is defined by restricting to a subcollection of objects and subcollection of morphisms subject to the requirements that the subcategory D contains
