@@ -1,0 +1,304 @@
+\documentclass{article}
+\usepackage{ctex}
+%\usepackage{math490}
+\usepackage{tikz}
+\usetikzlibrary{cd}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{unicode-math} %为了花体数字
+%\usepackage[bbgreekl]{mathbbol}
+\usepackage[all,cmtip]{xy} %画交换图的package
+\usepackage{xspace}
+\usepackage{stmaryrd} %for double square bracket
+\usepackage{proof}
+
+\usepackage{hyperref} %url
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+
+\usepackage{titlesec}
+\titleformat{\section}[block]{\color{blue}\Large\bfseries\filcenter}{}{1em}{}
+\titleformat{\subsection}[hang]{\color{red}\Large\bfseries}{}{0em}{}
+\usepackage[textwidth=18cm]{geometry} %页宽
+
+%theorem,corollary,lemma
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{corollary}{Corollary}[theorem]
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{definition}[theorem]{Definition}
+%\newtheorem{example}[theorem]{Example}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem{annotation}[theorem]{Annotation}
+
+
+\newcommand{\defeq}{\coloneqq}
+\newcommand{\eqdef}{\eqqcolon}
+
+% shortcuts for various fonts
+\newcommand{\tbf}{\textbf}
+\newcommand{\mcl}{\mathcal}
+\newcommand{\mbf}{\mathbf}
+\newcommand{\mbb}{\mathbb}
+\newcommand{\msr}{\mathscr}
+\newcommand{\mfr}{\mathfrak}
+\newcommand{\msf}{\mathsf}
+\newcommand{\mrm}{\mathrm}
+
+% shortcuts for common categories
+\newcommand*{\cat}[1]{\textsf{#1}\xspace}
+\newcommand{\Cat}{\textsf{Cat}\xspace}
+\newcommand{\CAT}{\textsf{CAT}\xspace}
+\newcommand{\Set}{\textsf{Set}\xspace}
+\newcommand{\Fin}{\textsf{Fin}\xspace}
+\newcommand{\Top}{\textsf{Top}\xspace} % replaced logical Top ⫪
+\newcommand{\Ring}{\textsf{Ring}\xspace}
+\newcommand{\Field}{\textsf{Field}\xspace}
+\newcommand{\Group}{\textsf{Group}\xspace}
+\newcommand{\Monoid}{\textsf{Monoid}\xspace}
+\newcommand{\Ab}{\textsf{Ab}\xspace}
+\newcommand{\Rng}{\textsf{Rng}\xspace}
+% these can only be used in math mode
+% if you can come up with a macro that works in both tell me
+\newcommand{\Setp}{\textsf{Set}_*}
+\newcommand{\Finp}{\textsf{Fin}_*}
+\newcommand{\Topp}{\textsf{Top}_*}
+\newcommand*{\Mod}[1]{\textsf{Mod}_{#1}}
+\newcommand*{\Mat}[1]{\textsf{Mat}_{#1}}
+\newcommand*{\Vect}[1]{\textsf{Vect}_{#1}}
+
+\newcommand{\zero}{\mbb{0}}
+\newcommand{\one}{\mbb{1}}
+\newcommand{\two}{\mbb{2}}
+\newcommand{\three}{\mbb{3}}
+\newcommand{\four}{\mbb{4}}
+\newcommand{\five}{\mbb{5}}
+\newcommand{\six}{\mbb{6}}
+\newcommand{\seven}{\mbb{7}}
+\newcommand{\eight}{\mbb{8}}
+\newcommand{\nine}{\mbb{9}}
+
+\newcommand{\Proj}{\text{\bf Proj}}
+\newcommand{\Affine}{\text{\bf Affine}}
+
+% blackboard bold shortcuts
+\renewcommand{\AA}{\mathbb{A}} % replaced Angstrom symbol Å
+\newcommand{\BB}{\mathbb{B}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\DD}{\mathbb{D}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\KK}{\mathbb{K}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+\renewcommand{\SS}{\mathbb{S}}
+\newcommand{\ZZ}{\mathbb{Z}}
+
+% sans serif shortcuts
+\newcommand{\sA}{\mathsf{A}}
+\newcommand{\sB}{\mathsf{B}}
+\newcommand{\sC}{\mathsf{C}}
+\newcommand{\sD}{\mathsf{D}}
+\newcommand{\sE}{\mathsf{E}}
+\newcommand{\sF}{\mathsf{F}}
+\newcommand{\sG}{\mathsf{G}}
+\newcommand{\sH}{\mathsf{H}}
+\newcommand{\sJ}{\mathsf{J}}
+\newcommand{\sP}{\mathsf{P}}
+
+% script shortcuts -- NOT USED FOR CATEGORIES, USE mathsf
+% note: cD, cH, cL, and cR were commands in an earlier version of xypic now
+% considered obsolete, the file xyv2.tex still defines them, hence the
+% renewcommand
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}} % see note
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}} % see note
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cL}{\mathcal{L}} % see note
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cZ}{\mathcal{Z}}
+
+\newcommand{\mm}{\mathfrak{m}}
+\newcommand{\pp}{\mathfrak{p}}
+\newcommand{\qq}{\mathfrak{q}}
+\newcommand{\ee}{\mathfrak{e}}
+
+\newcommand{\bC}{{\bf C}}
+\newcommand{\bD}{{\bf D}}
+
+% shortcuts for various greek letters
+\newcommand{\al}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\gm}{\gamma}
+\newcommand{\Gm}{\Gamma}
+\newcommand{\de}{\delta}
+\newcommand{\De}{\Delta}
+\newcommand{\ep}{\epsilon}
+\newcommand{\ze}{\zeta}
+\renewcommand{\th}{\theta} % replaced thorn þ
+\newcommand{\Th}{\Theta}
+\newcommand{\io}{\iota}
+\newcommand{\ka}{\kappa}
+\newcommand{\lm}{\lambda}
+\newcommand{\Lm}{\Lambda}
+\newcommand{\sm}{\sigma}
+\newcommand{\Sm}{\Sigma}
+\newcommand{\om}{\omega}
+\newcommand{\Om}{\Omega}
+
+% for embedding text in display style math
+\newcommand*{\qtextq}[1]{\quad\text{#1}\quad}
+\newcommand*{\qtext}[1]{\quad\text{#1}}
+\newcommand*{\textq}[1]{\text{#1}\quad}
+\newcommand{\IN}{\text{ in }}
+\newcommand{\AND}{\text{ and }}
+\newcommand{\OR}{\text{ or }}
+\newcommand{\ST}{\text{ such that }}
+\newcommand{\IF}{\text{ if }}
+
+% 1/<stuff> seems to be the most common fraction
+\newcommand*{\recip}[1]{\frac{1}{#1}}
+\newcommand*{\trecip}[1]{\tfrac{1}{#1}}
+\newcommand*{\ipr}[2]{\left\langle{#1},{#2}\right\rangle}
+
+\newcommand{\id}{1}
+\newcommand{\op}{\textrm{op}}
+\newcommand{\iso}{\textrm{iso}}
+\newcommand{\nil}{\emptyset}
+\newcommand{\by}{\times}
+\newcommand{\emb}{\hookrightarrow}
+\newcommand{\wto}{\rightharpoonup}
+\newcommand{\bic}{\leftrightarrow}
+\newcommand{\To}{\Rightarrow}
+\newcommand*{\inv}[1]{{#1}^{-1}}
+
+\newcommand{\Ztwo}{\ZZ\sqbraq{\sqrt{2}}}
+\newcommand{\rtwo}{\sqrt{2}}
+\newcommand*{\lst}[3][1]{{#2}_{#1},\dots,{#2}_{#3}}
+\newcommand*{\fm}[3][i]{\{{#2}_{#1}\}_{{#1}\in{#3}}}
+
+% function defintions
+\newcommand*{\xfunc}[4]{{#2}\colon{#3}{#1}{#4}}
+\newcommand*{\func}[3]{\xfunc{\to}{#1}{#2}{#3}}
+\newcommand*{\Func}[3]{\xfunc{\To}{#1}{#2}{#3}}
+\newcommand*{\mono}[3]{\xfunc{\rightarrowtail}{#1}{#2}{#3}}
+\newcommand*{\afunc}[4]{\xfunc{\leftrightarrows}{#1}{#3}{#4}\noloc{#2}}
+\newcommand*{\epic}[3]{\xfunc{\twoheadrightarrow}{#1}{#2}{#3}}
+\newcommand*{\incl}[3]{\xfunc{\hookrightarrow}{#1}{#2}{#3}}
+\newcommand*{\pfunc}[3]{\xfunc{\rightrightarrows}{#1}{#2}{#3}}
+\newcommand*{\idfunc}[1]{\func{\id_{#1}}{#1}{#1}}
+\newcommand*{\oper}[2]{\func{#1}{{#2}\by{#2}}{#2}}
+\newcommand*{\nper}[3]{\func{#1}{{#2}^{#3}}{#2}}
+\newcommand*{\maps}[3]{\xfunc{\mapsto}{#1}{#2}{#3}}
+\newcommand*{\isom}[3]{\xfunc{\cong}{#1}{#2}{#3}}
+
+\newcommand*{\con}[3]{{#1}\equiv{#2}\mod{#3}}
+\newcommand*{\pcon}[3]{{#1}\equiv{#2}\pmod{#3}}
+
+% auto resize delimiters
+\newcommand*{\norm}[1]{\left\|{#1}\right\|}
+\newcommand*{\abs}[1]{\left\lvert{#1}\right\rvert}
+\newcommand*{\qty}[1]{\left({#1}\right)}
+\newcommand*{\sqr}[1]{\left[{#1}\right]}
+\newcommand*{\floor}[1]{\left\lfloor{#1}\right\rfloor}
+\newcommand*{\ceil}[1]{\left\lceil{#1}\right\rceil}
+\newcommand*{\angl}[1]{\left\langle{#1}\right\rangle}
+
+\newcommand*{\basis}[2]{\left\{{#1}_1,\dots,{#1}_{#2}\right\}}
+\newcommand*{\inlnmat}[1]{\left(\begin{smallmatrix}#1\end{smallmatrix}\right)}
+\newcommand*{\dispmat}[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand*{\adj}[1]{\!\sqr{#1}}
+\newcommand*{\fld}[1]{\!\qty{#1}}
+\newcommand*{\fps}[1]{\!\sqr{\!\sqr{#1}\!}}
+\newcommand*{\lps}[1]{\!\qty{\!\qty{#1}\!}}
+
+% this is the preferred way to make non-italic text for function and operator
+% names; it automatically handles spacing
+\DeclareMathOperator{\ob}{ob}
+\DeclareMathOperator{\fin}{fin}
+\DeclareMathOperator{\mor}{mor}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\len}{len}
+\DeclareMathOperator{\cod}{cod}
+\DeclareMathOperator{\colim}{colim}
+\DeclareMathOperator{\range}{range}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\ID}{id}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Conj}{Conj}
+\DeclareMathOperator{\Sect}{Sect}
+
+\newcommand{\redt}[1]{\textcolor{red}{#1}}
+\newcommand{\bluet}[1]{\textcolor{blue}{#1}}
+\newcommand{\dbracket}[1]{\ensuremath{\left\llbracket\,\vcenter{\hbox{$#1$}}\,\right\rrbracket}}
+
+\title{Categorical Semantics for STLC}
+\author{maple}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+\section{First Try}
+\subsection{Category of Baby Type Theory}
+
+\begin{definition}
+\rm A \emph{baby type system} with only atomic types and where typing context are singletons.
+\end{definition}
+
+\begin{definition}
+\rm A interpretion of baby type system is category $\cat{C}_{bT}$ such that objects are intrepretions of types and morphism are intrepretions of term-in-context(sequent). 
+\begin{itemize}
+	\item \emph{objects}: $\dbracket{A}$ where $A$ is atomic type;
+	\item \emph{morphism}: $\dbracket{\Gamma \vdash E:A}:\dbracket{\Gamma} \to \dbracket{A}$, abbreviate it to $\dbracket{E}:\dbracket{\Gamma} \to \dbracket{\Gamma}$;
+	\item \emph{identity}: $\dbracket{x:A \vdash x:A} = \ID\left(\dbracket{A}\right):\dbracket{A} \to \dbracket{A}$, it corresponds to \[\infer{x:A \vdash x:A}{}~\textsc{Var}\]
+	\item \emph{composition}: $\dbracket{E_2[y\to E_1]} = \dbracket{E_2} \circ \dbracket{E_1}:\dbracket{A} \to \dbracket{C}$, it corresponds to \[\infer{x:A \vdash E_2[y\to E_1]}{x:A \vdash E_1:B & y:B \vdash E_2:C}~{Sub}\]
+	\item \emph{unit law}: \[
+	\begin{gathered}
+	\dbracket{x:A \vdash E[x \to x]} =   \dbracket{x:A \vdash E:B} \circ \dbracket{x:A \vdash x:A}\\
+	\dbracket{x:A \vdash E[y \to E]} =   \dbracket{y:B \vdash y:B} \circ \dbracket{x:A \vdash E:B} 
+	\end{gathered}\]
+	\item \emph{associative law}: Given $x:A \vdash E_1:B, y:B \vdash E_2:C, z:C \vdash E_3:D$, we have\[\dbracket{E_3[z\to E_2[y\to E_1]]} = \dbracket{E_3[z\to E_2][y \to E_1]} : \dbracket{A} \to \dbracket{D}\].
+\end{itemize}
+\end{definition}
+
+\newpage
+\begin{thebibliography}{00}
+\bibitem{b2} Edward Morehouse. Basic Category Theory. OPLSS, 2016.
+\end{thebibliography}
+\end{document}
