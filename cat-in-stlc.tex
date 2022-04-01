@@ -286,7 +286,7 @@
 \begin{itemize}
 	\item \emph{objects}: $\dbracket{A}$ where $A$ is atomic type;
 	\item \emph{morphism}: $\dbracket{\Gamma \vdash E:A}:\dbracket{\Gamma} \to \dbracket{A}$, abbreviate it to $\dbracket{E}:\dbracket{\Gamma} \to \dbracket{\Gamma}$;
-	\item \emph{identity}: $\dbracket{x:A \vdash x:A} = \ID\left(\dbracket{A}\right):\dbracket{A} \to \dbracket{A}$, it corresponds to \[\infer{x:A \vdash x:A}{}~\textsc{Var}\]
+	\item \emph{identity}: $\dbracket{x:A \vdash x:A} = 1_{\dbracket{A}}:\dbracket{A} \to \dbracket{A}$, it corresponds to \[\infer{x:A \vdash x:A}{}~\textsc{Var}\]
 	\item \emph{composition}: $\dbracket{E_2[y\to E_1]} = \dbracket{E_2} \circ \dbracket{E_1}:\dbracket{A} \to \dbracket{C}$, it corresponds to \[\infer{x:A \vdash E_2[y\to E_1]}{x:A \vdash E_1:B & y:B \vdash E_2:C}~{Sub}\]
 	\item \emph{unit law}: \[
 	\begin{gathered}
@@ -298,7 +298,21 @@
 \end{definition}
 
 \newpage
+\subsection{Category of Propositions and Derivations}
+
+\begin{definition}
+\rm A netural deduction system corresponds to category $C_{\textsc{Nd}}$ such that objects are interpretations of propositions and morphisms are interpretations of derivations. 
+\begin{enumerate}
+	\item \emph{morphism}: a morphism $\dbracket{\mathcal{D}}:\dbracket{\Gamma} \to \dbracket{A}$ corresponds \[\deduce[\mathcal{D}]{\infer{A}{}}{\infer{}{\Gamma}}\]
+	\item \emph{identity}: $1_{\dbracket{A}}$ corresponds identity derivation $\infer{A}{A}$. 
+\end{enumerate} 
+\end{definition}
+
+
+
+\newpage
 \begin{thebibliography}{00}
-\bibitem{b2} Edward Morehouse. Basic Category Theory. OPLSS, 2016.
+\bibitem{2016} Edward Morehouse. Basic Category Theory. OPLSS, 2016. \url{https://www.ioc.ee/~ed/research/notes/intro_categorical_semantics.pdf}
+\bibitem{2015} Edward Morehouse. Basic Category Theory. OPLSS, 2015.
 \end{thebibliography}
 \end{document}

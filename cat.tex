@@ -309,6 +309,13 @@
 \rm \redt{一个不太准确但是形象的concrete category的定义} 如果一个范畴的object都有一个underlying set(去瞅瞅universal algebra)，每一个morphism都是两个underlying set之间映射定义的function，特别地这些function都有structure-preserving的性质，那么我们则称这个范畴是一个concrete category. 
 \end{definition}
 
+\begin{definition}
+\rm A category is \redt{discrete} if every morphism is an identity.
+\end{definition}
+
+\begin{definition}
+\rm A \redt{small set} is one in a fixed universe of sets. Strictly speaking, in this case one could just say “set”.
+\end{definition}
 
 \begin{definition}
 \rm A category is \redt{small} if it has a small set(not proper class) of objects and a small set of morphisms.
@@ -320,7 +327,7 @@
 \end{definition}
 
 \begin{definition}
-\rm An \redt{isomorphism} in a category is a morphism $\func{f}{X}{Y}$for which there exists a morphism $\func{g}{Y}{X}$ so that $gf= \id_X$ and $fg = \id_Y$ . The objects $X$ and $Y$ are \redt{isomorphic} whenever there exists an isomorphism between $X$ and $Y$, in which case one writes $X \cong Y$. 
+\rm An \redt{isomorphism} in a category is a morphism $\func{f}{X}{Y}$ for which there exists a morphism $\func{g}{Y}{X}$ so that $gf= \id_X$ and $fg = \id_Y.$ The objects $X$ and $Y$ are \redt{isomorphic} whenever there exists an isomorphism between $X$ and $Y$, in which case one writes $X \cong Y$. 
 \end{definition}
 
 \begin{definition}
@@ -362,6 +369,46 @@ the domain and codomain of any morphism in D , the identity morphism of any obje
 \begin{lemma}
 \rm Any category $\cat{C}$ contains a \redt{maximal groupoid} the subcategory containing all of the objects and only those morphisms that are isomorphisms. 
 \end{lemma}
+
+
+\begin{definition}
+\rm For $\cat{C}$ any category, its \redt{arrow category} $\cat{C}^\to$ is the category such that 
+\begin{enumerate}
+	\item an object $a$ of $\cat{C}^\to$ is morphism $a: X\to Y$ of $\cat{C}$;
+	\item a morphism $f: a \to b$ of $\cat{C}^\to$ is commutative square
+	$$
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAA0B9ARhAF9S6TLnyEUZblVqMWbAJo9+gkBmx4CRAEzkp9Zq0QdOmpULWitpSdT2zDCk3ykwoAc3hFQAMwBOEALZIZCA4EEjc1Ax0AEYwDAAKwupiID5YrgAWOCA2MgYgdIoC3n6BiMGhSNrS+mxeRcq+AVXUlYgAzJExcYnmGoYMMF7ZubWGhY6NpeGtYR1dsQlJFoZpmSM1diD1jhR8QA
+\begin{tikzcd}
+X_1 \arrow[d, "a"'] \arrow[rr, "f_1"] &  & X_2 \arrow[d, "b	"] \\
+Y_1 \arrow[rr, "f_2"']                  &  & Y_2                 
+\end{tikzcd}
+	$$
+	\item a composition
+	$$
+	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAA0B9ARhAF9S6TLnyEUZblVqMWbAJo9+gkBmx4CRAEzkp9Zq0QdOmpULWitpSdT2zDCkwLMiNKACw6bMg0YDMplWF1MWQPa2l9eU5-PikYKABzeCJQADMAJwgAWyQyEBwIJG5qBjoAIxgGAAUgi0N0rASACxwQL0jDOgCM7NzqAqRtCLsQVMUnUcycxCGBxF8S8sqa81cQBhhU1vaRsu6pov7C+cWK6tq1hubt4Z8xx2Ue6dnjj1u2BPHHg5P844BWHY+T4mU7LC5iEBXFr7XqIN5zQHvQwAY34FD4QA
+\begin{tikzcd}
+X_1 \arrow[d, "a"'] \arrow[rr, "f_1"] &  & X_2 \arrow[d, "b"] \arrow[rr, "g_1"] &  & X_3 \arrow[d, "c"] \\
+Y_1 \arrow[rr, "f_2"']                &  & Y_2 \arrow[rr, "g_2"']               &  & Y_3               
+\end{tikzcd}
+	$$
+\end{enumerate}
+\end{definition}
+
+\begin{annotation}
+\rm 我觉得要证上面的这个composition的两条路径$f_1 \cdot g_1 \cdot c$和$a\cdot f_2 \cdot g_2$相同，得从它们分别都和$f_1 \cdot b \cdot g_2$相同来证. 
+
+按照arrow category的定义，我们可以迭代定义构造更复杂的交换图
+$$
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12AjJhhmHCAC+pdJlz5CKAIylpVWoxZtOPPgOGiQGbHgJEyAJgX1mrRB269+gkWN2SisgMwml5y2pub7E-SmdyNzMVK3VbLR0-KWQAFjlg5QtVaw07bXE9GMDjalMkz1SI3yyieNc891CvNIUYKABzeCJQADMAJwgAWyQyEBwIJFj0ju6kWX7BxABWEc6exD6B8bmxxeplxENqBjouGAYABUzHC3asBoALQUqQizoAfWkfEFGF7cmkZ1WFic3AxR3EBcJ4vN5DDZTWZacGIeKfRAANh2ewOxwc-hA-FaN0BBUehjB8yQ00hSAA7LcCiDCT8kMiEeS6VsyUjmQDNkyKEIgA
+\begin{tikzcd}
+\bullet \arrow[rrr] \arrow[rd] \arrow[dd, "a_1"'] &                                       &  & \bullet \arrow[rd] \arrow[dd, "a_2"] &                           \\
+                                                  & \bullet \arrow[rrr] \arrow[dd, "b_1"] &  &                                      & \bullet \arrow[dd, "b_2"] \\
+\bullet \arrow[rd] \arrow[rrr]                    &                                       &  & \bullet \arrow[rd]                   &                           \\
+                                                  & \bullet \arrow[rrr]                   &  &                                      & \bullet                  
+\end{tikzcd}
+$$
+两个侧面就是原来一阶arrow category中的commutative square, 现在整体是一个立方体了. 
+\end{annotation}
 
 \newpage
 \subsection{Duality}
@@ -465,6 +512,17 @@ $$
 $$
 \end{lemma}
 
+\begin{proof}
+\rm 如果$f$是一个monomorphism，那么有$f \circ g_1 = f \circ g_2 \Rightarrow g_1 = g_2$，即$f_*$对应下面交换图唯一得到$f_*(g) = h \in \mor(c,y)$.
+$$
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAA8QBfU9TXfIRQBGclVqMWbAJ7deIDNjwEiZYePrNWiEAGNu4mFADm8IqABmAJwgBbJGRA4ISURK1sLcyzfuIATNTODtQMdABGMAwACvzKQiAMMBY4INSaUjrGAPrC3iDWdkiBTi6IbhnaIDn+aYkRUbFKgmxWWMYAFqlcFFxAA
+\begin{tikzcd}
+x \arrow[r, "f"]                      & y \\
+c \arrow[u, "g"] \arrow[ru, "h"'] &  
+\end{tikzcd}
+$$
+\end{proof}
+
 \begin{lemma}
 \rm $\func{f}{x}{y}$是一个epimorphism当且仅当对任意的$c \in \cat{C}$，pre-composition with $f$都会诱导出一个满射
 $$
@@ -499,15 +557,15 @@ $$
 \begin{definition}
 \rm 一个函子$F \colon \cat{C} \rightarrow \cat{D}$由两个映射组成
 \begin{itemize}
- \item 每一个对象$c \in \cat{C}$,对应一个对象$F_c \in \cat{D}$。
+ \item 每一个对象$c \in \cat{C}$,对应一个对象$Fc \in \cat{D}$。
  \item 每一个态射$f \colon c \rightarrow	c' \in \cat{C}$,对应一个态射$Ff \colon Fc \rightarrow Fc' \in \cat{D}$，所有$Ff$的domain和codomian分别对应$f$的domain和codomain。 
 \end{itemize}
 同时还满足两个公理（functoriality aximos）
 \begin{itemize}
  	\item 对任意的composable morphisms $f,g \in \cat{C}$，则$Fg \circ Ff = F(g \circ f)$
- 	\item 对任意的identity morphism $1_c \in \cat{C}$，则$F(1_c)=1_{F_c}$
+ 	\item 对任意的identity morphism $1_c \in \cat{C}$，则$F(1_c)=1_{Fc}$
 \end{itemize}
-通俗一点来说，函子由两个范畴之间对象的映射和态射的映射组成，同时保留了范畴所有的结构，包括domains，codomain，复合律，identity。
+通俗一点来说，函子由两个范畴之间对象的映射和态射的映射组成，这个映射同时保留了范畴上的结构，包括domains，codomain，复合律，identity。
 \end{definition}
 
 
@@ -628,7 +686,7 @@ $x \in \cat{C}$映射到$\mor(c,x) \in \cat{Set}$，对偶地，函子$\cat{C}(-
 \begin{example}
 \rm 函子$\sC^{\op}\to \sD$和函子$\sC\to \sD^{\op}$有什么区别？函子$\sC\to\sD$和函子$\sC^{\op}\to \sD^{\op}$又有什么区别？
 
-先给结论都是没有区别的，现证函子$\sC\to\sD$和函子$\sC^{\op}\to \sD^{\op}$没有区别，定义$F$为$\sC\to\sD$的函子，即$F$满足对$\func{f}{x}{y}$和$\func{g}{w}{x}$有$F(f \circ g)=F(f) \circ F(g)$，$\sC^{\op}$和$\sC$里面的对象是相同的，态射的箭头转向，即$\func{f}{y}{x}$和$\func{g}{x}{w}$,把$F$作用在它们上$F(g \circ f)=F(g) \circ F(f)$也是成立的，其中$F(g) \in \sD^{\op}$,所以两个函子没有区别。
+先给结论都是没有区别的，先证函子$\sC\to\sD$和函子$\sC^{\op}\to \sD^{\op}$没有区别，定义$F$为$\sC\to\sD$的函子，即$F$满足对$\func{f}{x}{y}$和$\func{g}{w}{x}$有$F(f \circ g)=F(f) \circ F(g)$，$\sC^{\op}$和$\sC$里面的对象是相同的，态射的箭头转向，即$\func{f}{y}{x}$和$\func{g}{x}{w}$,把$F$作用在它们上$F(g \circ f)=F(g) \circ F(f)$也是成立的，其中$F(g) \in \sD^{\op}$,所以两个函子没有区别。
 
 下面再用一个小trick $({\sC^{\op}})^{\op}=\sC$, 再用一下上面已经证明的结论$\sC^{\op}\to\sD$等价为$({\sC^{\op}})^{\op}\to\sD^{\op}$, 即$\sC\to\sD^{\op}$。
 
@@ -691,18 +749,21 @@ $$
 \begin{example}
 \rm 给定两个函子$\func{F}{\sD}{\sC}$和$\func{G}{\sE}{\sC}$,可以构造一个逗号范畴(comma category) $F \downarrow G$:
 	\begin{enumerate}
-		\item 对象为三元组$(d \in \sD,e\in \sE,\func{f}{F(d)}{G(e)} \in \sC)$
-		\item 态射$\qty{d,e,f} \rightarrow \qty{d',e',f'}$,用一个序对表示$\qty{\func{h}{d}{d'},\func{k}{e}{e'}}$，即有下面交换图
+		\item objects are triples $(d,e,\alpha)$ where $d \in D$, $e \in E$, and $\alpha: F(d) \to F(e)$ is a morphism in $C$, and and whose
+		\item morphisms from $(d_1,e_1,\alpha_1)$ to $(d_2,e_2,\alpha_2)$ are pairs $(\beta,\gamma)$, where $\beta:d_1 \to d_2$ and $\gamma: e_1 \to e_2$ are morphisms in $D$ and $E$, repsectively, such that $\alpha_2 \circ F(\beta) = $
 		\[\xymatrix{
-					F(d) \ar[d]_{F(h)} \ar[r]^{f} & G(e)\ar[d]^{G(k)}  \\
-			F(d')\ar[r]_{f'} &G(e)'}\]
+					F(d_1) \ar[d]_{F(\beta)} \ar[r]^{\alpha_1} & G(e_1)\ar[d]^{G(\gamma)}  \\
+			F(d_2)\ar[r]_{\alpha_2} &G(e_2)}\]
 			$f'F(h) = G(k)f$
 	\end{enumerate}
-	同时定义了一对射影函子$\func{\dom}{F\downarrow G}{\sD}$ 和
-	$\func{\cod}{F\downarrow G}{\sE}$	
+	同时定义了一对射影函子
+	\begin{enumerate}
+		\item there is a bifunctor $H_D:F\downarrow G \to D$ which sends each object $(d,e,\alpha)$ to $d$, and each pair $(\beta,\gamma)$ to $\beta$;
+		\item there is a bifunctor $H_E:F\downarrow G \to E$ which sends each object $(d,e,\alpha)$ to $e$, and each pair $(\beta,\gamma)$ to $\gamma$.
+	\end{enumerate}
 \end{example}
 
-首先我们要证明逗号范畴它确实是一个范畴，但这个范畴的出现就看起来非常突兀，但是它似乎非常有作用，能把不同的两个范畴弄到一个范畴里面。逗号范畴里面的态射统一用$\qty{\func{h}{d}{d'},\func{k}{e}{e'}} \qty{f,f'}$表示，后面的括号内容特殊标识态射的domain和codomain。
+首先我们要证明逗号范畴它确实是一个范畴，但这个范畴的出现就看起来非常突兀，逗号范畴提供观察morphism的另外一种视角. 逗号范畴里面的态射统一用$\qty{\func{h}{d}{d'},\func{k}{e}{e'}} \qty{f,f'}$表示，后面的括号内容特殊标识态射的domain和codomain。
 
 要说明它是一个范畴，首先我们定义它每个对象的单位态射和态射复合：
 
@@ -758,17 +819,19 @@ $$\func{\al}{(d,e,f)}{(d_1,e_1,f_1)} \AND
 	 k = \cod\be\cod\al.\]
 	 
 \begin{example}
-见识了逗号范畴的不可思议，它可以把两个不同的范畴弄到一起，也可以把两个范畴弄出来，现在来构造一个特殊逗号范畴，把逗号范畴特殊化为切片范畴$c/\sC$和$\sC/c$。
-\end{example}
-
-这个构造过程，当你把两张相关交互图放在一起比较的时候，你就会发现其实很容易。
-\[ \xymatrix{&c\ar[dr]^g
+\rm 我们来看comma category的一个特殊例子切片范畴(slice category) $c/\sC$和$\sC/c$, 其中$c$ is object of $\cat{C}$. 以$c/\cat{C}$为例.
+\begin{enumerate}
+	\item objects are morphisms $f$ of $C$ such that $\dom(f) = c$; 
+	\item morphisms from $f:x \to c$ to $g: y \to c$ are diagram
+	\[ \xymatrix{&c\ar[dr]^g
 		\ar[dl]_f& \\ x \ar[rr]_h && y } \] \[\xymatrix{
 					F(d) \ar[d]_{F(h)} \ar[r]^{f} & G(e)\ar[d]^{G(k)}  \\
-			F(d')\ar[r]_{f'} &G(e)'}\]上面第一张是$c/\sC$中描述态射的交换图，	 首先我们需要逗号范畴交换图里面四个箭头变成三个箭头并且固定$c$,所以逗号范畴中的函子$F$只能是一个顺序范畴$\mathbb{1}$的单位函子,让我们看看现在变成了什么\[\xymatrix{F(0) \ar[d]_{1_c} \ar[r]^{f} & G(e)\ar[d]^{G(k)}  \\F(0)\ar[r]_{f'} &G(e)'}\]然后我们再让$F(0)=c \in C$ \[\xymatrix{c \ar[d]_{1_c} \ar[r]^{f} & G(e)\ar[d]^{G(k)}  \\c\ar[r]_{f'} &G(e)'}\]看起来已经很接近了,这张图还是交换的，现在逗号范畴的对象变成了$\qty{0,e \in E,f}$,而态射变成了$\qty{\func{h}{0}{0},\func{k}{e}{e'}}(f,f')$,其中$0$和$1_0$可以省略代表固定了$c$。但是这里还是有两个范畴，而切片范畴只是由一个范畴构造而成，所以这里最好的选择就是把$G$当成$\sC$的一个单位态射$1_{\sC}$,我们已经可以画一条对角线了\[\xymatrix{c \ar[d]_{1_c} \ar[r]^{f} \ar[rd]^{f'1_c} & x\ar[d]^{k}  \\c\ar[r]_{f'} &y}\],这个特殊的逗号范畴已经很显然是一个切片范畴了。
-			
+			F(d')\ar[r]_{f'} &G(e)'}\]
+	which $h: x\to y$ is morphism of $\cat{C}$.		
+\end{enumerate}
 
-函子的作用无疑是非常强大的，下面记录一下trivial函子的扩展
+上面同时列出了comma category的交换图，用于解释slice category为什么是一个特殊的comma category $F \downarrow G$. 因此需要将comma category交换图里面四个箭头变成三个箭头并且固定$c$. 首先我们想办法去掉箭头$F(h)$，限制$D$是一个trivial category(only with $\bullet$ and $1_\bullet$), 同时$F(\bullet) = c$, 则 \[\xymatrix{c \ar[d]_{1_c} \ar[r]^{f} & G(e)\ar[d]^{G(k)}  \\c\ar[r]_{f'} &G(e)'}\] 显然这里$f' \circ 1_c = f'$，我们将它变成一条对角线\[\xymatrix{c \ar[d]_{1_c} \ar[r]^{f} \ar[rd]^{f'1_c} & x\ar[d]^{k}  \\c\ar[r]_{f'} &y}\] 即马上得到我们希望的slice category $c/\cat{C}$.  
+\end{example}
 
 \begin{example}
 \rm $\func{\Conj}{\Group}{\Set}$是一个函子，$\Conj$作用在单个群上表示群共轭等价类的集合，在群里面两个元素如果是共轭的，表示为存在一个n使得$a=nbn^{-1}$成立，则称$a$和$b$共轭，很容易证明这个共轭关系是一个等价关系。当把$\Conj$作用在\emph{the category of groups}上时:
@@ -776,15 +839,16 @@ $$\func{\al}{(d,e,f)}{(d_1,e_1,f_1)} \AND
 		\item 对任意的群$s$,\(\Conj s = \hat{s}\)
 		\item 对任意的群同态\(\func{f}{s}{t}\),\(\func{\Conj f}{\hat{s}}{\hat{t}}\)对任意的\([x] \in \hat{s}\),\(\Conj f([x])=[f(x)]\)
 	\end{itemize}
-\end{example}
-
+	
 为了证明Conj确实可以扩展到一个函子，得说明几个东西，如果存在一个群同态$\func{f}{s}{t}$,$a,b \in s$,且$a$和$b$共轭,那么存在一个$n$,使得$a=nbn^{-1}$ \[f(a)=f(nbn^{-1})=f(n)f(b)f(n^{-1})=f(n)f(b)f(n)^{-1}\]所以群同态是保留元素共轭结构的，这说明如果$[a]=[b]$,则$[f(a)]=[f(b)]$, 上面$\Conj f$是well-defined。
 
 还是老步骤，需要说明indentiy和composition的保留
 \begin{itemize}
 	\item 对应单位态射对任意的群$s$,对象$x \in s$ \[\Conj 1_s([x])=[1_s(x)]=[x]=1_{\hat{s}}([x])=1_{\Conj s}([x]).\]这个证明感觉很迷，感觉还是要从消去律出发，但是取的是任意的$x$似乎也能说明问题$\Conj 1_s = 1_{\Conj s}$.
 	\item 让$f$和$g$表示两个可复合的态射$fg$,$[x] \in dom(f)$ \[\Conj g\Conj f([x])=\Conj g([f(x)])=[g(f(x))]=[gf(x)]=\Conj (gf([x])).\]
-\end{itemize}
+\end{itemize}	
+\end{example}
+
 
 \newpage
 \subsection{Naturality}
