@@ -1095,7 +1095,7 @@ $$
                               & \bullet \arrow[ru] &         &  &                                    & Z \arrow[ru, "h"'] &  
 \end{tikzcd}
 $$
-然后我们将其第一个每天annotation的图视为indexing category，实际上就是一个preorder，我们给其中三个点加上表示一个preorder必要的信息
+然后我们将第一个就可以视为diagram of indexing category，实际上这个diagram可能是invisible. 特别地如果将$J$看做一个finite preoder，我们给其中三个点加上表示一个preorder必要的信息
 $$
 % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAEYQBfU9TXfIRQAmclVqMWbAMzdeIDNjwEi7Uu3H1mrRCGFy+SwUQAsY6lqm6AGgYX9lQ5ADZzE7WwCadxQJUoAVnVNSR0QAC1ucRgoAHN4IlAAMwAnCABbJDIQHAgkNRAGOgAjGAYABQdjXQYYJJwQC1C2AB0W2oBHO1SMrOpcpFF3KxA2zsbCkrLKo38QFKxYgAsGnmS0zMQhgcQCyzCxmC7qItKKqrmF5dX5Hs3pfrzEIMmzmb8hecWVif22WO6GyQLx2Zle0wunyuPyaHl0S0BvUQDxyTzBf10SURm2yO2yDAgEDQRDISUYcBg4lOENmUO+qwoXCAA
 \begin{tikzcd}
@@ -1103,7 +1103,7 @@ $$
                                                                                      & 2 \arrow[ru, "\leq"'] &   &  &                                    & Z \arrow[ru, "h"'] &  
 \end{tikzcd}
 $$
-注意里面$1$这里有一个环表示$1 \leq 1$，其它两个点也有，只是省略了. 这里的关系就很天然了，其中$1 \leq 1$可以对应上identity $1_X: X \to X$, 而$1 \leq 2 , 2 \leq 3 \Rightarrow 1 \leq 3$ 对应上$g: X\to Z, h: Z \to Y \Rightarrow f: X \to Y$，完全可以让我们建立起一个functor，左图关于functor的image不多不少就是diagram. 
+注意里面$1$这里有一个环表示$1 \leq 1$，其它两个点也有，只是省略了. 这里的关系就很天然了，其中$1 \leq 1$可以对应上identity $1_X: X \to X$, 而$1 \leq 2 , 2 \leq 3 \Rightarrow 1 \leq 3$ 对应上$g: X\to Z, h: Z \to Y \Rightarrow f: X \to Y$，完全可以让我们建立起一个functor，左图关于functor的image不多不少就是diagram，同时还是commutative的.  
 \end{annotation}
 
 \newpage
