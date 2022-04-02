@@ -530,9 +530,37 @@ $$
 $$
 \end{lemma}
 
+\begin{example}
+\rm If we take the subcategory of a slice category $\cat{C}/c$ containing just the monomorphisms then we get a preorder: give two monomorphisms $m,n$, we way $m \leq n$ just in case there is an commutative diagram
+$$
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAA0QBfU9TXfIRQAmclVqMWbAJrdeIDNjwEiARlKrx9Zq0QgAxt3EwoAc3hFQAMwBOEALZIyIHBCSiJOto+oM6AIxgGAAV+ZSEQGyxTAAscOWs7R0R1FzdED20pPUIeRIcnalckVKzdECsjLiA
+\begin{tikzcd}
+X \arrow[rd, "m"'] \arrow[rr, "f"] &   & Y \arrow[ld, "n"] \\
+                                   & c &                  
+\end{tikzcd}
+$$
+if $f$ exists, is unique. 
+
+假设$f$不唯一，那么存在$m = n \circ f_1$和$m = n \circ f_2$，于是$n = \circ f_1 = n \circ f_2$，但是$n$是monic，那么必有$f_1 = f_2$，这就矛盾了. 
+\end{example}
+
 \begin{definition}
 \rm Suppose that $x \xrightarrow{s} y \xrightarrow{r} x$ are morphism so that $rs = \id_x$. The map $s$ is \redt{section} or \redt{right inverse} to $r$，while the map $r$ defines a \redt{retraction} or \redt{left inverse} to $s$. The map $s$ and $r$ express the object $x$ as a \redt{retract} of the object $y$.
 \end{definition}
+
+\begin{lemma}
+\rm If a morphism has both a section and retraction then the section and the retraction are identical.
+\end{lemma}
+
+\begin{proof}
+\rm 假设给定morphism $f:X \to Y$的section $s$和retraction $r$，则有
+$$
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZARgBoAGAXVJADcBDAGwFcYkQANEAX1PU1z5CKAEwVqdJq3YBNHnxAZseAkXLiaDFm0Qg5vfsqFEAzBsnb2XbhJhQA5vCKgAZgCcIAWyTqQOCEhkFtK6LiA0jPQARjCMAAoCKsIgWGDYsPKuHt6IYn4BiL5aISAIBiDuXoE0-khmIJEx8YnGum5Y9gAWOOHBOiBumRXZPjUF9TFgUHVFUv1Y0xHRsQlGqrqp6WzllTl5tYhBk9OIALQmvo0rLespaQtsmnPsC0O7SPvjNMczT5a6ZQU71yYzq3xgUyQ51m-wGvSuzTWyXaXR6Nm4QA
+\begin{tikzcd}
+Y \arrow[r, "s"] \arrow[rr, "id" description, bend right] \arrow[rrr, "s", bend left] \arrow[rrr, "r"', bend right] & X \arrow[r, "f" description] \arrow[rr, "id" description, bend left] & Y \arrow[r, "r"'] & X
+\end{tikzcd}
+$$ 
+\end{proof}
 
 \begin{lemma}
 \rm In above case, $s$ is always a monomorphism and dually, $r$ is always an epimorphism. we call such $s$ is a \redt{split monomorphism} and $r$ \redt{split epimorphism} (\bluet{用于强调它们有某侧逆的存在}). 
@@ -659,7 +687,7 @@ c' \arrow[r, maps to]               & F_{c'} \arrow[u, "Ff"]
 \end{definition}	
 
 \begin{lemma}
-\rm \redt{$c$-functor}  如果范畴$\cat{C}$是locally small的，可以用任意一个对象$c \in \cat{C}$来构造一对$\cat{C} \to \Set$的同变函子和逆变函子：
+\rm \redt{representable functor}  如果范畴$\cat{C}$是locally small的，可以用任意一个对象$c \in \cat{C}$来构造一对$\cat{C} \to \Set$的同变函子和逆变函子：
 \[
 	\xymatrix@-1pc{
 	\cat{C}\ar[rr]^{\cat{C}(c,-)} & & \Set & \cat{C}^\op \ar^{\cat{C}(-,c)}[rr] & & \Set \\
@@ -853,19 +881,20 @@ $$\func{\al}{(d,e,f)}{(d_1,e_1,f_1)} \AND
 \newpage
 \subsection{Naturality}
 \begin{definition}
-\rm 设$\cat{C}$与$\cat{D}$是两个范畴，$F \colon \cat{C}\rightarrow \cat{D}$与$G \colon \cat{C} \rightarrow \cat{D}$,一个\redt{自然变换}(natural transformation) $\cat{C} \Rightarrow \cat{D}$ 由下面箭头组成
+\rm 设$\cat{C}$与$\cat{D}$是两个范畴，给定两个functor $F \colon \cat{C}\rightarrow \cat{D}$与$G \colon \cat{C} \rightarrow \cat{D}$,一个\redt{自然变换}(natural transformation) $\alpha:\cat{C} \Rightarrow \cat{D}$ 由满足下述条件的morphisms组成:
 \begin{itemize}
-	\item 箭头$\alpha_c \colon Fc \rightarrow Gc$表示对于每一个对象$c \in \cat{C}$对应到$d \in \cat{D}$，这些箭头的“collection”（注意没有用集合的概念）定义了自然变换的组成部分。
-\end{itemize}
-对任意的态射$f \colon c \rightarrow c' \in \cat{C}$，有下面交换图（$G(f)\alpha_{c}=\alpha_{c'}F(f)$）：
-\begin{center}
+	\item For every object $X$ in $\cat{C}$, there is a morphism $\alpha_X: F(X) \to G(X)$ between objects of $\cat{D}$. The morphism $\alpha_X$ is called the component of $\alpha$ at $X$. 
+	\item Components must be such that for every morphism $f:X \to Y$ in $\cat{C}$, we have bleow commutative diagram
+	$$
 % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRADEB9AYxAF9S6TLnyEUARnJVajFmwDiPfoJAZseAkTLjp9Zq0QdOwbgHI+yoetFFJO6nrmHFJ8-2kwoAc3hFQAMwAnCABbJDIQHAgkSRl9NgAdBMY0AAs6JQEA4LDECKikACZqBjoAIxgGAAVhDTEQQKwvVJwQB1kDDn9LECDQmOoCxABmdvjnbqzenKLB6JGS8sqa601DRubWsacQDNcLPgo+IA
 \begin{tikzcd}
-Fc \arrow[r, "\alpha_c"] \arrow[d, "Ff"'] & Gc \arrow[d, "Gf"] \\
-F{c'} \arrow[r, "a_{c'}"']                & G{c'}             
+F(X) \arrow[r, "\alpha_X"] \arrow[d, "F(f)"'] & G(X) \arrow[d, "G(f)"] \\
+F(Y) \arrow[r, "\alpha_Y"']                & G(Y)             
 \end{tikzcd}
-\end{center}
-注意交换图里面的所有态射都属于$\cat{D}$，如果自然变换$\alpha \colon F \rightarrow G$满足对任意的$c \in \ob\cat{C}$对应的$\alpha_{c} : Fc \to Gc$都是一个isomorphism，则称$\alpha$是一个\redt{自然同构}(natural isomorphism). 
+$$ 
+\end{itemize}
+
+注意交换图里面的所有态射都属于$\cat{D}$，如果自然变换$\alpha \colon F \rightarrow G$满足对任意的$c \in \ob\cat{C}$对应的$\alpha_{c} : F(c) \to G(c)$都是一个isomorphism，则称$\alpha$是一个\redt{自然同构}(natural isomorphism). 
 \end{definition}
 
 \begin{annotation}
@@ -1037,4 +1066,48 @@ c' \arrow[rr, "\eta_c'"']               &  & GF(c')
 \end{center}
 
 将近拖了半个月的证明，终于证完了，选择公理的应用和间接构造自然同构，还是得在细细想想...
+
+\newpage
+\subsection{The art of the diagram chase}
+
+\begin{definition}
+\rm \redt{(一个不那么offical的定义)} A \redt{diagram} is typically presented informally as a directed graph of morphism in a category. In this informal presentation, the diagram commutes if any two paths of \redt{composable} arrows in the directed  graph with common source and target  have the same composite.
+\end{definition}
+
+\begin{definition}
+\rm A diagram in a category $\cat{C}$ is a functor $F:\cat{J} \to \cat{C}$ whose domain, the \redt{indexing category}, is a small category.
+\end{definition}
+
+\begin{annotation}
+\rm 为什么diagram是一个functor呢？ 如果我们抹去一个常见diagram上面的关于objects和morphism注解它会变成这样
+$$
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12AjJhhmHCAC+pdJlz5CKAEzkqtRizacefAcNEgM2PASIBGUvvn1mrRB269+gofJhQA5vCKgAZgCcIAWyRkQOBBI+iLuXr6I-oFI0qEgnj4x1NGIIRRCQA
+\begin{tikzcd}
+\bullet \arrow[rr] \arrow[rd] &                    & \bullet \\
+                              & \bullet \arrow[ru] &        
+\end{tikzcd}
+$$
+然后我们把它和正常的diagram放在一起
+$$
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12AjJhhmHCAC+pdJlz5CKAEzkqtRizacefAcNEgM2PASIBGUvvn1mrRB269+gkWJ2SiAFjnVTSiwA0N9iXpQAbK4KZmwAmj5a4rpSyACsRiaK5iAAWsLyMFAA5vBEoABmAE4QALZIZCA4EEiGIR5g1tQMdFwwDAAK0Y4W-AW2msVlFdTVSLL15o18za3tXQ7+IH0DhSXliBNjiHXuU03Lc53dSyuRQxsAzKM1iAmHbceLUiBFWNkAFoJuyWzZ5+skPdti4HvMTi83p9vpM2B8AcNENcqrdQXs2AUMkIgA
+\begin{tikzcd}
+\bullet \arrow[rr] \arrow[rd] &                    & \bullet &  & X \arrow[rd, "g"'] \arrow[rr, "f"] &                    & Y \\
+                              & \bullet \arrow[ru] &         &  &                                    & Z \arrow[ru, "h"'] &  
+\end{tikzcd}
+$$
+然后我们将其第一个每天annotation的图视为indexing category，实际上就是一个preorder，我们给其中三个点加上表示一个preorder必要的信息
+$$
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAEYQBfU9TXfIRQAmclVqMWbAMzdeIDNjwEi7Uu3H1mrRCGFy+SwUQAsY6lqm6AGgYX9lQ5ADZzE7WwCadxQJUoAVnVNSR0QAC1ucRgoAHN4IlAAMwAnCABbJDIQHAgkNRAGOgAjGAYABQdjXQYYJJwQC1C2AB0W2oBHO1SMrOpcpFF3KxA2zsbCkrLKo38QFKxYgAsGnmS0zMQhgcQCyzCxmC7qItKKqrmF5dX5Hs3pfrzEIMmzmb8hecWVif22WO6GyQLx2Zle0wunyuPyaHl0S0BvUQDxyTzBf10SURm2yO2yDAgEDQRDISUYcBg4lOENmUO+qwoXCAA
+\begin{tikzcd}
+1 \arrow[rr, "\leq"] \arrow[rd, "\leq"'] \arrow[loop, distance=2em, in=305, out=235] &                       & 3 &  & X \arrow[rd, "g"'] \arrow[rr, "f"] &                    & Y \\
+                                                                                     & 2 \arrow[ru, "\leq"'] &   &  &                                    & Z \arrow[ru, "h"'] &  
+\end{tikzcd}
+$$
+注意里面$1$这里有一个环表示$1 \leq 1$，其它两个点也有，只是省略了. 这里的关系就很天然了，其中$1 \leq 1$可以对应上identity $1_X: X \to X$, 而$1 \leq 2 , 2 \leq 3 \Rightarrow 1 \leq 3$ 对应上$g: X\to Z, h: Z \to Y \Rightarrow f: X \to Y$，完全可以让我们建立起一个functor，左图关于functor的image不多不少就是diagram. 
+\end{annotation}
+
+\newpage
+\section{Univeral Properties, Respresentability, and the Yoneda Lemma}
+
+
 \end{document}
