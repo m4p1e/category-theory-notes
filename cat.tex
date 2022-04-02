@@ -306,7 +306,7 @@
 
 
 \begin{definition}
-\rm \redt{一个不太准确但是形象的concrete category的定义} 如果一个范畴的object都有一个underlying set(去瞅瞅universal algebra)，每一个morphism都是两个underlying set之间映射定义的function，特别地这些function都有structure-preserving的性质，那么我们则称这个范畴是一个concrete category. 
+\rm \redt{一个不太准确但是形象的concrete category的定义} 如果一个范畴的object都有一个underlying set(去瞅瞅universal algebra)，每一个morphism都是两个underlying set之间映射定义的function，特别地这些function都有structure-preserving的性质，那么我们则称这个范畴是一个concrete category. 实际上就是有一个forgetful functor $U:\cat{C} \to \Set$. 
 \end{definition}
 
 \begin{definition}
@@ -726,9 +726,12 @@ $x \in \cat{C}$映射到$\mor(c,x) \in \cat{Set}$，对偶地，函子$\cat{C}(-
 \end{example}
 
 \begin{definition}
-\rm 设$F \colon \cat{C} \rightarrow \cat{D}$是一个函子，如果存在函子$G \colon \cat{D} \rightarrow \cat{C}$使得$GF=1_{\cat{C}},FG = 1_{\cat{D}}$,则称$F$是范畴$\cat{C}$到范畴$\cat{D}$的一个\redt{同构} (isomorphism). 换一句话来说如果存在范畴$\cat{C}$到$\cat{D}$的同构$F \colon \cat{C} \rightarrow \cat{D}$,则称范畴$\cat{C}$与$\cat{D}$是同构的. \bluet{这说明$F$是一个满射，两个范畴对象和态射是一个双射}.
+\rm 设$F \colon \cat{C} \rightarrow \cat{D}$是一个函子，如果存在函子$G \colon \cat{D} \rightarrow \cat{C}$使得$GF=1_{\cat{C}},FG = 1_{\cat{D}}$,则称$F$是范畴$\cat{C}$到范畴$\cat{D}$的一个\redt{同构} (isomorphism).
 \end{definition}
 
+\begin{annotation}
+\rm  isomorphism of categories实际就是在说明两个categories之间的objects和morphisms都是一一对应的. 
+\end{annotation}
 
 
 \begin{definition}
@@ -1079,7 +1082,7 @@ c' \arrow[rr, "\eta_c'"']               &  & GF(c')
 \end{definition}
 
 \begin{annotation}
-\rm 为什么diagram是一个functor呢？ 如果我们抹去一个常见diagram上面的关于objects和morphism注解它会变成这样
+\rm 为什么diagram是一个functor呢？ 如果我们抹去一个常见diagram上面的关于objects和morphism注解它会变directed graph
 $$
 % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12AjJhhmHCAC+pdJlz5CKAEzkqtRizacefAcNEgM2PASIBGUvvn1mrRB269+gofJhQA5vCKgAZgCcIAWyRkQOBBI+iLuXr6I-oFI0qEgnj4x1NGIIRRCQA
 \begin{tikzcd}
@@ -1095,7 +1098,7 @@ $$
                               & \bullet \arrow[ru] &         &  &                                    & Z \arrow[ru, "h"'] &  
 \end{tikzcd}
 $$
-然后我们将第一个就可以视为diagram of indexing category，实际上这个diagram可能是invisible. 特别地如果将$J$看做一个finite preoder，我们给其中三个点加上表示一个preorder必要的信息
+然后我们将第一个directed graph视为shape of that diagram，同样也其. 特别地如果将$J$看做一个finite preoder，我们给其中三个点加上表示一个preorder必要的信息
 $$
 % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAEYQBfU9TXfIRQAmclVqMWbAMzdeIDNjwEi7Uu3H1mrRCGFy+SwUQAsY6lqm6AGgYX9lQ5ADZzE7WwCadxQJUoAVnVNSR0QAC1ucRgoAHN4IlAAMwAnCABbJDIQHAgkNRAGOgAjGAYABQdjXQYYJJwQC1C2AB0W2oBHO1SMrOpcpFF3KxA2zsbCkrLKo38QFKxYgAsGnmS0zMQhgcQCyzCxmC7qItKKqrmF5dX5Hs3pfrzEIMmzmb8hecWVif22WO6GyQLx2Zle0wunyuPyaHl0S0BvUQDxyTzBf10SURm2yO2yDAgEDQRDISUYcBg4lOENmUO+qwoXCAA
 \begin{tikzcd}
@@ -1103,9 +1106,19 @@ $$
                                                                                      & 2 \arrow[ru, "\leq"'] &   &  &                                    & Z \arrow[ru, "h"'] &  
 \end{tikzcd}
 $$
-注意里面$1$这里有一个环表示$1 \leq 1$，其它两个点也有，只是省略了. 这里的关系就很天然了，其中$1 \leq 1$可以对应上identity $1_X: X \to X$, 而$1 \leq 2 , 2 \leq 3 \Rightarrow 1 \leq 3$ 对应上$g: X\to Z, h: Z \to Y \Rightarrow f: X \to Y$，完全可以让我们建立起一个functor，左图关于functor的image不多不少就是diagram，同时还是commutative的.  
+注意里面$1$这里有一个环表示$1 \leq 1$，其它两个点也有，只是省略了. 这里的关系就很天然了，其中$1 \leq 1$可以对应上identity $1_X: X \to X$, 而$1 \leq 2 , 2 \leq 3 \Rightarrow 1 \leq 3$ 对应上$g: X\to Z, h: Z \to Y \Rightarrow f: X \to Y$，完全可以让我们建立起一个functor，左图关于functor的image不多不少就是diagram，同时还是commutative的. 
+
+同时functor建立的关系能让directed graph上的composition同时保持在我们当且探讨的category上. 这样我们在diagram上直接操作来描述一些东西，这样方法我们称为diagram chasing.
 \end{annotation}
 
+
+\begin{definition}
+\rm An object $I \in C$ is initial if for every $X \in \cat{C}$ there is unique morphism $I \in X$. Dually, an object $T \in \cat{C}$ is terminal if for every $X \in C$ there is a unique morphism $X \to T$.  
+\end{definition}
+
+\begin{example}
+\rm The empty set is an initial object in $\Set$ and nay singleton set is terminal. 
+\end{example}
 \newpage
 \section{Univeral Properties, Respresentability, and the Yoneda Lemma}
 
