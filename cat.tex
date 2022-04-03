@@ -306,7 +306,7 @@
 
 
 \begin{definition}
-\rm \redt{一个不太准确但是形象的concrete category的定义} 如果一个范畴的object都有一个underlying set(去瞅瞅universal algebra)，每一个morphism都是两个underlying set之间映射定义的function，特别地这些function都有structure-preserving的性质，那么我们则称这个范畴是一个concrete category. 实际上就是有一个forgetful functor $U:\cat{C} \to \Set$. 
+\rm \redt{一个不太准确但是形象的concrete category的定义} 如果一个范畴的object都有一个underlying set(去瞅瞅universal algebra)，每一个morphism都是两个underlying set之间映射定义的function，特别地这些function都有structure-preserving的性质，那么我们则称这个范畴是一个concrete category. 实际上就是有一个faithful forgetful functor $U:\cat{C} \to \Set$. 
 \end{definition}
 
 \begin{definition}
@@ -978,7 +978,7 @@ c' \arrow[r, "\alpha_{c'}"']            & GF(c')                   &  & d' \arro
 	\end{itemize}
 \end{definition}
 
-注意full和faithful 都是相对两个范畴的hom-set来说的，所以它们都是局部条件（local condition）。在局部条件上再增强一下，如果一个函子是\tbf{嵌入}（embedding）是指如果一个faithful funtor函子，且对对象的作用也是单射，这种情况下，函子的domain范畴其实就是codomain范畴的一个子范畴，就把局部条件上升为了全局条件作用在所有箭头上。
+注意full和faithful是相对于两个parallel morphism $f,g:X \rightrightarrows Y$在functor下作用而言的，所以它们都是局部条件（local condition）。在局部条件上再增强一下，如果一个函子是\tbf{嵌入}（embedding）是指如果一个faithful funtor函子，且对对象的作用也是单射，这种情况下，函子的domain范畴其实就是codomain范畴的一个子范畴，就把局部条件上升为了全局条件作用在所有箭头上。
 
 \begin{theorem}
 \rm 如果一个函子是等价的，当且仅当这个函子是faithful，full，essentially surjective on objects(dense)。
@@ -1119,6 +1119,23 @@ $$
 \begin{example}
 \rm The empty set is an initial object in $\Set$ and nay singleton set is terminal. 
 \end{example}
+
+\begin{lemma}
+\rm If $U:\cat{C} \to \cat{D}$ is faithful, then any diagram in $\cat{C}$ whose image commutes in $\cat{D}$ also commutes in $\cat{C}$.
+\end{lemma}
+
+\begin{proof}
+如果给定$\cat{C}$上的某个diagram，和它关于$U$的image diagram
+$$
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAA0QBfU9TXfIRQAmclVqMWbAJrdeIDNjwEiARlKrx9Zq0QgAWnL5LBRACxjq2qXoCqACnYBKIwv7KhyAGyWJOtg7SLjzGAiooAKwaWpK6IA76weIwUADm8ESgAGYAThAAtkhkIDgQSOp+NiBZrrkFRdSlSKIgDHQARjAMAArupno5WKkAFjggVrFsqbV5hYgtTYgV1nHD460dXb0m4SCDI2Mh1bNIAMyNZYgWlXEOWcHydXPnJZdRG509fbv7o+srAXsqQe2ROiHei2uALs9mGLmobU+2zCQj2Qz+XAoXCAA
+\begin{tikzcd}
+X \arrow[rr, "f"] \arrow[rd, "g"'] &                    & Y &  & U(X) \arrow[rr, "U(f)"] \arrow[rd, "U(g)"'] &                          & U(Y) \\
+                                   & Z \arrow[ru, "h"'] &   &  &                                             & U(Z) \arrow[ru, "U(h)"'] &     
+\end{tikzcd}
+$$
+assuming $U(f) = U(h) \circ U(g)$, according functor preserve composition relation we have $U(f) = U(h \circ g)$, and $U$ is faithful, finally we can got $f = h \circ g$. 
+\end{proof}
+
 \newpage
 \section{Univeral Properties, Respresentability, and the Yoneda Lemma}
 
