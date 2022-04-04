@@ -687,7 +687,7 @@ c' \arrow[r, maps to]               & F_{c'} \arrow[u, "Ff"]
 \end{definition}	
 
 \begin{lemma}
-\rm \redt{representable functor}  如果范畴$\cat{C}$是locally small的，可以用任意一个对象$c \in \cat{C}$来构造一对$\cat{C} \to \Set$的同变函子和逆变函子：
+\rm \redt{represented functor}  如果范畴$\cat{C}$是locally small的，可以用任意一个对象$c \in \cat{C}$来构造一对$\cat{C} \to \Set$的同变函子和逆变函子：
 \[
 	\xymatrix@-1pc{
 	\cat{C}\ar[rr]^{\cat{C}(c,-)} & & \Set & \cat{C}^\op \ar^{\cat{C}(-,c)}[rr] & & \Set \\
@@ -710,6 +710,13 @@ $x \in \cat{C}$映射到$\mor(c,x) \in \cat{Set}$，对偶地，函子$\cat{C}(-
 
 最后还需要证明$\cat{C}(-,c)$是一个逆变函子，利用对偶性质，$\func{\cat{C}^\op(c,-)}{\cat{C}^\op}{\Set}$也是一个函子，同时它也是一个逆变函子，自然地$\cat{C}^\op(c,-) = \cat{C}(-,c)$，证闭. 
 \end{proof}
+
+\begin{definition}
+\rm If $\cat{C}$ is locally small, then there is a \redt{two-sided represented functor}
+$$
+\cat{C}(-,-):\cat{C}^\op \times \cat{C} \to \Set. 
+$$
+\end{definition}
 
 \begin{example}
 \rm 函子$\sC^{\op}\to \sD$和函子$\sC\to \sD^{\op}$有什么区别？函子$\sC\to\sD$和函子$\sC^{\op}\to \sD^{\op}$又有什么区别？
@@ -884,7 +891,7 @@ $$\func{\al}{(d,e,f)}{(d_1,e_1,f_1)} \AND
 \newpage
 \subsection{Naturality}
 \begin{definition}
-\rm 设$\cat{C}$与$\cat{D}$是两个范畴，给定两个functor $F \colon \cat{C}\rightarrow \cat{D}$与$G \colon \cat{C} \rightarrow \cat{D}$,一个\redt{自然变换}(natural transformation) $\alpha:\cat{C} \Rightarrow \cat{D}$ 由满足下述条件的morphisms组成:
+\rm 设$\cat{C}$与$\cat{D}$是两个范畴，给定两个functor $F \colon \cat{C}\rightarrow \cat{D}$与$G \colon \cat{C} \rightarrow \cat{D}$,一个\redt{自然变换}(natural transformation) $\alpha:\cat{F} \Rightarrow \cat{G}$ 由满足下述条件的morphisms组成:
 \begin{itemize}
 	\item For every object $X$ in $\cat{C}$, there is a morphism $\alpha_X: F(X) \to G(X)$ between objects of $\cat{D}$. The morphism $\alpha_X$ is called the component of $\alpha$ at $X$. 
 	\item Components must be such that for every morphism $f:X \to Y$ in $\cat{C}$, we have bleow commutative diagram
@@ -1139,5 +1146,152 @@ assuming $U(f) = U(h) \circ U(g)$, according functor preserve composition relati
 \newpage
 \section{Univeral Properties, Respresentability, and the Yoneda Lemma}
 
+
+\subsection{Representable functors}
+
+\begin{definition}\label{initial object characterized by representable functor}
+\rm An object $I$ in a category $\cat{C}$ is initial if and only if the functor $\cat{C}(I,-):\cat{C}\to\Set$ is naturally isomorphic to the constant functor $*:\cat{C} \to \Set$ that sends every object to the singleton set. 
+\end{definition}
+
+\begin{definition}
+\rm An object $T$ in a category $\cat{C}$ is terminal if and only if the functor $\cat{C}(-,T):\cat{C}^\op\to\Set$ is naturally isomorphic to the constant functor $*:\cat{C}^{\op} \to \Set$ that sends every object to the singleton set. 
+\end{definition}
+
+\begin{annotation}
+\rm 如果$I$是$\cat{C}$的initial object，那么显然对于任意的$X \in \cat{C}$，$\cat{C}(I,X)$都是一个singleton. 对偶地，如果$T$是$\cat{C}$的terminal object，那么显然对于任意$X$，$\cat{C}(X,T)$都是一个singleton. 就\ref{initial object characterized by representable functor}来简单说明一下.
+$$
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoAmAXVJADcBDAGwFcYkQAdDgI2ccZg4QAX1LpMufIRTlSxanSat2AYQAUASVIANAJQixIDNjwEisqjQYs2iEOq0BNfaPEmpRMvKtLbnHnwCQsIKMFAA5vBEoABmAE4QALZIAMw0OBBIAIw+NuxcTGgAFvQA+toGsQnJiDkgGUiyinl2MaUAVJUg8UlIZPWZiE3WynYFjMVljl09NWkDfTSM9NwwjAAKEqbSIHFY4UVCuaMg7WoxLpTCQA
+\begin{tikzcd}
+\bullet \arrow[rr, "\alpha_X"] \arrow[dd, "*(f)"'] &  & {C(I,X)} \arrow[dd, "f_*"] \\
+                                                   &  &                            \\
+\bullet \arrow[rr, "\alpha_Y"]                     &  & {C(I,Y)}                  
+\end{tikzcd}
+$$
+其中$\bullet$表示constant functor中fixed singleton. 很显然$\alpha_X$和$\alpha_Y$都是isomorphism. 
+\end{annotation}
+
+\begin{definition}
+\rm A covariant or contravariant functor $F$ from a locally small category $\cat{C}$ to $\Set$ is representable if there is an object $X \in \cat{X}$ and a natural isomorphism between $F$ and the functor of appropricate variance represented by $X$, in which case one says that the functor $F$ is represented by object $X$. 
+\end{definition}
+
+\begin{definition}
+\rm A representation for a functor $F$ is a choice of object $X \in \cat{C}$ together with a specified natural isomorphism $\cat{C}(X,-) \cong F$, if $F$ is covariant, or $\cat{-,c} \cong F$, if $F$ is contravarint. 
+\end{definition}
+
+\newpage
+\subsection{Yoneda lemma}
+
+\begin{lemma}
+\rm For any functor $F: \cat{C} \to \Set$, whose domain $\cat{C}$ is locally small and any object $A \in \cat{C}$, there is a bijection 
+$$
+\Hom(\cat{C}(A,-),F) \cong F(A)
+$$
+\end{lemma}
+
+\begin{proof}
+\rm 注意$\Hom(\cat{C}(A,-),F)$表示是$\cat{C}(A,-)$和$F$之间所有natural transformations. 对任一natural transformation $\alpha: \cat{C}(A,-) \to F$考虑一个特殊情况
+$$
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAGEAKAQVO4EoQAX1LpMufIRQAmclVqMWbAGI9BIsdjwEiZafPrNWiDj1IANdaJAYtkorP3VDSk6svD5MKAHN4RUAAzACcIAFskMhAcCCQARmdFYxAAHRTGNAALOgB9bmFrEPDI6hikaQ0QIojEWWjYxABmSur40obmiiEgA
+\begin{tikzcd}
+{C(A,A)} \arrow[rr, "\alpha_A"] \arrow[dd,"f_*"] &  & F(A) \arrow[dd,"F(f)"] \\
+                                           &  &                 \\
+{C(A,X)} \arrow[rr,"\alpha_X"]                        &  & F(X)           
+\end{tikzcd}
+$$
+显然有$\alpha_A(1_A) \in F(A)$. 因此我们构造一个map
+$$
+\Phi: \Hom(\cat{C}(A,-),F) \to F(A)~~~~\redt{\Phi(\alpha)=\alpha_A(1_A)}.
+$$
+下面来说明它是bijiection，为此我们要构造一个关于$\Phi$的inverse $\Psi: F(A) \to \Hom(\cat{C}(A,-),F)$，即我们对每一个$a \in F(A)$都需要构造一个natrual transformation $\Psi(a):\cat{C}(A,-) \to F$. 我们还是先用类似于上面交换图，此时的component $\Phi(a)_A$和$\cat{C}$上的$f:A \to X $
+$$
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAGEAKAQVO4EoQAX1LpMufIRQAmclVqMWbAGI9BIsdjwEiZafPrNWiDj1IANdaJAYtkorP3VDSk6svD5MKAHN4RUAAzACcIAFskMhAcCCQARmdFYxAAHRSABWxOOn4AfW5haxDwyOoYpFkFIzZA3IAqQqDQiMRK8sQAZkTqkzTMrGy88xBqBjoAIxgGdPFtKRBgrB8ACxxGkGKWhOjYzu7XEFVA9QohIA
+\begin{tikzcd}
+{C(A,A)} \arrow[rr, "\Psi(a)_A"] \arrow[dd, "f_*"] &  & F(A) \arrow[dd, "F(f)"] \\
+                                                   &  &                         \\
+{C(A,X)} \arrow[rr, "\Psi(a)_X"']                  &  & F(X)                   
+\end{tikzcd}
+$$
+因为$\Phi$和$\Psi$互为inverse，那么根据$\Phi(\alpha) = \alpha_A(1_A)$，将其中$\alpha_A$换成$\Psi(x)_A$，则有$\Psi(x)_A(1_A) = x$. 同时
+$1_A$上面交换图流动则有
+$$
+[\Psi(a)_X](f)=[F(f)](a)
+$$
+很显然上面这个等式就完全地定义了component $\Phi(a)_X$，因为$f$是任意的. 定义了所有component，那么构造natural transformation $\Psi(a)$也就确定了. 
+
+还需要将$f$推广至$g:X \to Y$，用于证明$\Phi(a)$确实是一个natural transformation. 即要证明下图交换
+$$
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAGEAKAQVIA0AlCAC+pdJlz5CKAEzkqtRizYAxToJFiQGbHgJEyMhfWatEHHqQCaQ0eN1Sico9RPLzamyIUwoAc3giUAAzACcIAFskMhAcCCQARlclMxAAHTSABWxOOgEAfT5NEPCoxBi4pDlFUzY-fIAqYpAwyKrqSsQAZmTa8wzsrFyCqxBqBjoAIxgGTIk9aRBQrD8ACxxm1rKk2Pju3vcQNT9bCmEgA
+\begin{tikzcd}
+{C(A,X)} \arrow[rr, "\Psi(a)_X"] \arrow[dd, "g_*"] &  & F(X) \arrow[dd, "F(g)"] \\
+                                                   &  &                         \\
+{C(A,Y)} \arrow[rr, "\Psi(a)_Y"']                  &  & F(Y)                   
+\end{tikzcd}
+$$
+取$f \in \cat{C}(A,X)$，那么左下路径为
+$$
+[\Psi(a)_Y](g \circ f) = [F(g \circ f)](a). 
+$$
+右上路径为
+$$
+[F(g)]([\Psi(a)_X](f)) = [F(g)]([F(f)](a)).
+$$
+这里根据functor的定义有$F(g \circ f) = F(g) \circ F(f)$，因此上图是交换的. 
+
+最后我们来验证一下$\Phi$和$\Psi$确实互为inverse. 前面我们已经有了$\Phi\Psi(a) = a$. 下一步还需要证明$\Psi\Phi(\alpha) = \alpha$，即$\Psi(\alpha_A(1_A)) = \alpha$，要证明两个natural transformation相同，那么就是要证明所有component都是相同的，即
+$$
+[\Psi(\alpha_A(1_A))_X](f) = \alpha_X(f)
+$$
+等号左边有
+$$
+[\Psi(\alpha_A(1_A))_X](f) = [F(f)](\alpha_A(1_A))
+$$
+直接看我们引出的一个交换图，很显然对应上了两条路径
+\begin{equation}
+\redt{[F(f)]((\alpha_A)(1_A))=\alpha_X(f)}. \label{same composite}
+\end{equation}
+最终我们证明了$\Phi$和$\Psi$互为inverse. 
+\end{proof}
+
+%natural in object and functor
+\begin{corollary}
+\rm Under the definition of $\Phi$ in Yoneda lemma, given a natural transformation $\beta: F \to G$ and a morphism $f:A \to B$ in $\cat{C}$, we have two commutative diagram
+$$
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAB12cYAPHYABIQAtgF8AFAGFxAQVIBaAJSkAYopCjS6TLnyEUZAExVajFm07c+gkROlylpAOLrN27HgJFD5E-WasiCAqsq5aIBgeet6kxtT+5kFOoRrhkbpeKAAsvvFmgRxcvPxCYlKyCspqqe4Z+sg5caYBFkXWpXbiAEKVqmG1nvUAbLnNicEpbhE6g0QjTQkFIV2uJjBQAObwRKAAZgBOIkhkIDgQSD5jBZwACgAWWAD6KjUgB0eIJ2dIAIzUDHQAEYwBg3GbRIL7LAbO44EB5FpBTjAnB0R4AKle72EF2o30QAGYEeNkTBUVjDjjEH9TudCcTrux7k8nBSPjlaUgRldWszHjI2VSAKx4ukAdgZvIejy6gqQHPxIp5QXEuwAeujFBr4SAAcDQeDMiAoTC4VNsVzRUgJcqJrtVqIgA
+\begin{tikzcd}
+{\text{Hom}(C(A,-),F)} \arrow[rr, "\Phi_F"] \arrow[dd, "\beta_*"'] &  & F(A) \arrow[dd, "\beta_A"] &  & {\text{Hom}(C(A,-),F)} \arrow[rr, "\Phi_A"] \arrow[dd, "(f^*)^*"'] &  & F(A) \arrow[dd, "F(f)"] \\
+                                                                   &  &                          &  &                                                                    &  &                         \\
+{\text{Hom}(C(A,-),G)} \arrow[rr, "\Phi_G"]                        &  & G(A)                     &  & {\text{Hom}(C(B,-),F)} \arrow[rr, "\Phi_B"]                        &  & F(B)                   
+\end{tikzcd}
+$$
+its called \redt{naturality} in both functor and object.   
+\end{corollary}
+
+\begin{proof}
+首先做一些必要的解释，给定$\alpha \in \Hom(C(A,-),F)$
+\begin{itemize}
+ 	\item $\beta_*$是指$\alpha$ post-composition with $\beta$, 即$\beta \circ \alpha$. 
+ 	\item $(f^*)^*$是指$\alpha$的每个component pre-composition with $f^*$，设$g: X \to Y$ in $\cat{C}$，即
+ 	$$
+ 	% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAGEAKAIVIA0AlCAC+pdJlz5CKAEzkqtRizZcAgvyGjx2PASIAWedXrNWiEADFOqzWJAYdUomRkKTy8114BNW9sl6sqSuxkpmHDykviJ2DgHSyIYhiqZsVtyaCjBQAObwRKAAZgBOEAC2SGQgOBBIAIyhqeaFAHoAVDFFpRWIDdW1iHIpHiAAOqOMaAAWdAD6qp0gJeVIQzVIAKxaS9311OuI+tvLPYb9m8e7iFUHAMyXK4i3+wNHFMJAA
+\begin{tikzcd}
+{C(B,X)} \arrow[rr, "f^*"] \arrow[dd,"g_*"'] &  & {C(A,X)} \arrow[rr, "\alpha_X"] \arrow[dd,"g_*"'] &  & F(X) \arrow[dd,"F(g)"] \\
+                                      &  &                                            &  &                 \\
+{C(B,Y)} \arrow[rr,"f^*"]                   &  & {C(A,Y)} \arrow[rr,"\alpha_Y"]                        &  & F(Y)           
+\end{tikzcd}
+ 	$$
+ 	这样我们就可以构造从$\alpha$到关于$\cat{C}(B,-)$和$F$ natural transformation. 
+\end{itemize}
+
+先证第一个naturality in functor, 左下路径根据$\Phi$的定义$\Phi_G(\beta \circ \alpha)=(\beta \circ \alpha)_A(1_A)$. 右上路径有$\beta_A(\Phi_F(\alpha)) = \beta_A(\alpha_A(1_A))$，因此是交换的. 
+
+再证第二个naturality in object, 左下路径为$\Phi_B(\alpha \circ f^*) = (\alpha \circ f^*)_B(1_B)$，右上路径为$[F(f)]((\alpha_A)(1_A))$. 这里需要看一下component $(\alpha \circ f^*)_B$内部是啥，即
+$$
+% https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBpiBdUkANwEMAbAVxiRAGEAKAIVO4EoQAX1LpMufIRQAmclVqMWbLgEE+gkWOx4CRACxzq9Zq0QgAYjw3yYUAObwioAGYAnCAFskZEDghIARiNFUxBnAD0AKmFRMPcvRCDff0RZBRM2AB1MxjQACzoAfW5hCiEgA
+\begin{tikzcd}
+{C(B,B)} \arrow[rr, "f^*"] &  & {C(A,B)} \arrow[rr, "\alpha_B"] &  & F(B)
+\end{tikzcd}
+$$
+因此$(\alpha \circ f^*)_B(1_B) = \alpha_B(f)$，使用一下结论\ref{same composite}即有$[F(f)]((\alpha_A)(1_A))$，因为这里的$X$是任意的. 
+\end{proof}
 
 \end{document}
