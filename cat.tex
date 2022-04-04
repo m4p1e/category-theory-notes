@@ -1162,7 +1162,7 @@ assuming $U(f) = U(h) \circ U(g)$, according functor preserve composition relati
 $$
 % https://tikzcd.yichuanshen.de/#N4Igdg9gJgpgziAXAbVABwnAlgFyxMJZABgBoAmAXVJADcBDAGwFcYkQAdDgI2ccZg4QAX1LpMufIRTlSxanSat2AYQAUASVIANAJQixIDNjwEisqjQYs2iEOq0BNfaPEmpRMvKtLbnHnwCQsIKMFAA5vBEoABmAE4QALZIAMw0OBBIAIw+NuxcTGgAFvQA+toGsQnJiDkgGUiyinl2MaUAVJUg8UlIZPWZiE3WynYFjMVljl09NWkDfTSM9NwwjAAKEqbSIHFY4UVCuaMg7WoxLpTCQA
 \begin{tikzcd}
-\bullet \arrow[rr, "\alpha_X"] \arrow[dd, "*(f)"'] &  & {C(I,X)} \arrow[dd, "f_*"] \\
+\bullet \arrow[rr, "\alpha_X"] \arrow[dd, "1_\bullet"'] &  & {C(I,X)} \arrow[dd, "f_*"] \\
                                                    &  &                            \\
 \bullet \arrow[rr, "\alpha_Y"]                     &  & {C(I,Y)}                  
 \end{tikzcd}
@@ -1175,8 +1175,17 @@ $$
 \end{definition}
 
 \begin{definition}
-\rm A representation for a functor $F$ is a choice of object $X \in \cat{C}$ together with a specified natural isomorphism $\cat{C}(X,-) \cong F$, if $F$ is covariant, or $\cat{-,c} \cong F$, if $F$ is contravarint. 
+\rm A representation for a functor $F$ is a choice of object $X \in \cat{C}$ together with a specified natural isomorphism $\cat{C}(X,-) \cong F$, if $F$ is covariant, or $\Cat{C}{-,X} \cong F$, if $F$ is contravarint. 
 \end{definition}
+
+
+\begin{annotation}
+\rm 如果想探究某个object $X$的性质$P$，我们就构造一个represented functor $\Cat{C}(X,-)$ by this object $C$, 然后用另外一个functor $F$来刻画那个性质$P$，如果我们能构造一个natural ismorphism关于$\Cat{C}(X,-)$和$F$，那么就可以间接的说明这个性质$P$，也就是只$F$ is representable and $\Cat{C}(X,-)$ is its representation. 但是问题是
+\begin{itemize}
+	\item 这个$F$到底怎么构造呢？ 
+	\item 这个natural ismorphism又该如何构造呢？
+\end{itemize}
+\end{annotation}
 
 \newpage
 \subsection{Yoneda lemma}
