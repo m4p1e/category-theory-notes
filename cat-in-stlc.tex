@@ -285,7 +285,7 @@
 \rm A interpretion of baby type system is category $\cat{C}_{bT}$ such that objects are intrepretions of types and morphism are intrepretions of term-in-context(sequent). 
 \begin{itemize}
 	\item \emph{objects}: $\dbracket{A}$ where $A$ is atomic type;
-	\item \emph{morphism}: $\dbracket{\Gamma \vdash E:A}:\dbracket{\Gamma} \to \dbracket{A}$, abbreviate it to $\dbracket{E}:\dbracket{\Gamma} \to \dbracket{\Gamma}$;
+	\item \emph{morphism}: $\dbracket{\Gamma \vdash E:A}:\dbracket{\Gamma} \to \dbracket{A}$, abbreviated to $\dbracket{E}:\dbracket{\Gamma} \to \dbracket{\Gamma}$;
 	\item \emph{identity}: $\dbracket{x:A \vdash x:A} = 1_{\dbracket{A}}:\dbracket{A} \to \dbracket{A}$, it corresponds to \[\infer{x:A \vdash x:A}{}~\textsc{Var}\]
 	\item \emph{composition}: $\dbracket{E_2[y\to E_1]} = \dbracket{E_2} \circ \dbracket{E_1}:\dbracket{A} \to \dbracket{C}$, it corresponds to \[\infer{x:A \vdash E_2[y\to E_1]}{x:A \vdash E_1:B & y:B \vdash E_2:C}~{Sub}\]
 	\item \emph{unit law}: \[
@@ -308,7 +308,65 @@
 \end{enumerate} 
 \end{definition}
 
+\newpage
+\subsection{Unit Type and Void Type}
 
+\begin{definition}
+\rm The unit type is interpreted by the terminal object in categorical representation
+$$
+\dbracket{\top} := 1
+$$
+where $\top$ is actually unit type\footnote{Though $\top$ is described in subtyping} and $1$ represents terminal object. The introduction rule for unit type 
+$$
+\infer[\top I]{\Gamma \vdash *: \top}{}
+$$
+is interpreted by the unique map to terminal object
+$$
+\dbracket{*} := !(\dbracket{\Gamma}):\Gamma \to 1.
+$$   
+\end{definition}
+
+\begin{definition}
+\rm The void type is interpreted by the initial object in categorical representation
+$$
+\dbracket{\perp} := 0
+$$
+where $\perp$ is actually unit type and $1$ represents initial object. The elimintaion rule for void type 
+\end{definition}
+
+
+\newpage
+\subsection{Truth and Falsehood}
+
+\begin{definition}
+\rm Logical propositional constant truth is interpreted by the terminal object in categorical representation
+$$
+\dbracket{\top} := 1
+$$
+where $1$ represents terminal object. The natural deduction introduction rule for truth
+$$
+\infer[\top I]{\top}{&&}
+$$
+is interpreted by the unique map to termninal object
+$$
+\dbracket{\top I} := !(\dbracket{A}):\dbracket{A} \to 1. 
+$$
+\end{definition}
+
+\begin{definition}
+\rm Logical propositional constant falsehood is interpreted by the initial object in categorical representation
+$$
+\dbracket{\perp} := 0
+$$
+where $0$ represents initial object. The natural deduction elimination rule for falsehood
+$$
+\infer[\perp E]{A}{\perp}
+$$
+is interpreted by the unique map from the initial object:
+$$
+\dbracket{\perp E} := \mbox{!`}(\dbracket{A}): 0 \to \dbracket{A}
+$$
+\end{definition}
 
 \newpage
 \begin{thebibliography}{00}

@@ -1128,6 +1128,18 @@ $$
 \end{example}
 
 \begin{lemma}
+\rm If $T$ is terminal object of $\cat{C}$, then there is only a identity in $\Hom(T,T)$.
+\end{lemma}
+
+\begin{lemma}
+\rm If $\cat{C}$ has terminal object, then terminal objects are unique up to a unique isomophism.
+\end{lemma}
+
+\begin{proof}
+假设有两个terminal objects $T_1$和$T_2$, 那么有两个unique morphism $t:T_1 \to T_2$和$r:T_2 \to T_1$，容易证明它们互为inverse，即$t$是一个isomorphism，同时这个isomorphism也是唯一存在的.   
+\end{proof}
+
+\begin{lemma}
 \rm If $U:\cat{C} \to \cat{D}$ is faithful, then any diagram in $\cat{C}$ whose image commutes in $\cat{D}$ also commutes in $\cat{C}$.
 \end{lemma}
 
